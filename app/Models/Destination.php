@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+class Destination extends Model
+{
+    use HasUuids;
+
+    protected $fillable = [
+        'name',
+        'location',
+        'type',
+        'description',
+        'info',
+        'image',
+        'rating',
+        'duration',
+        'group_size',
+        'category',
+        'tour',
+        'status'
+    ];
+
+    protected $casts = [
+        'rating' => 'decimal:1'
+    ];
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
+    }
+
+    // public function tours()
+    // {
+    //     return $this->hasMany(Tour::class);
+    // }
+
+    public function getToursCountAttribute()
+    {
+        return 0; // Placeholder until Tour model is created
+    }
+}
