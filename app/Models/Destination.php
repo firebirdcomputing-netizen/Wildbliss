@@ -9,6 +9,17 @@ class Destination extends Model
 {
     use HasUuids;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($destination) {
+            if ($destination->image) {
+                @unlink(public_path('destinations/' . $destination->image));
+            }
+        });
+    }
+
     protected $fillable = [
         'name',
         'location',
@@ -32,7 +43,7 @@ class Destination extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset('storage/' . $this->image) : null;
+        return $this->image ? asset('destinations/' . $this->image) : null;
     }
 
     // public function tours()

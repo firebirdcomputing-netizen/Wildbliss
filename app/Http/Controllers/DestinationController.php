@@ -50,7 +50,19 @@ class DestinationController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('destinations', 'public');
+            $file = $request->file('image');
+            $filename = $file->hashName();
+            $destinationPath = public_path('destinations');
+            
+            if (!is_dir($destinationPath)) {
+                @mkdir($destinationPath, 0755, true);
+                @chmod($destinationPath, 0755);
+            }
+            
+            if ($file->move($destinationPath, $filename)) {
+                @chmod($destinationPath . '/' . $filename, 0644);
+                $validated['image'] = $filename;
+            }
         }
 
         Destination::create($validated);
@@ -78,9 +90,22 @@ class DestinationController extends Controller
 
         if ($request->hasFile('image')) {
             if ($destination->image) {
-                \Storage::disk('public')->delete($destination->image);
+                @unlink(public_path('destinations/' . $destination->image));
             }
-            $validated['image'] = $request->file('image')->store('destinations', 'public');
+            
+            $file = $request->file('image');
+            $filename = $file->hashName();
+            $destinationPath = public_path('destinations');
+            
+            if (!is_dir($destinationPath)) {
+                @mkdir($destinationPath, 0755, true);
+                @chmod($destinationPath, 0755);
+            }
+            
+            if ($file->move($destinationPath, $filename)) {
+                @chmod($destinationPath . '/' . $filename, 0644);
+                $validated['image'] = $filename;
+            }
         } else {
             unset($validated['image']); // Don't update image if no new file uploaded
         }
@@ -93,6 +118,10 @@ class DestinationController extends Controller
 
     public function destroy(Destination $destination)
     {
+        if ($destination->image) {
+            @unlink(public_path('destinations/' . $destination->image));
+        }
+        
         $destination->delete();
 
         return redirect()->route('admin.destinations')
