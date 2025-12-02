@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Destination;
 use Illuminate\Http\Request;
+
 use Inertia\Inertia;
 
 class DestinationController extends Controller
@@ -51,18 +52,15 @@ class DestinationController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $filename = $file->hashName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $destinationPath = public_path('destinations');
             
-            if (!is_dir($destinationPath)) {
-                @mkdir($destinationPath, 0755, true);
-                @chmod($destinationPath, 0755);
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
             }
             
-            if ($file->move($destinationPath, $filename)) {
-                @chmod($destinationPath . '/' . $filename, 0644);
-                $validated['image'] = $filename;
-            }
+            $file->move($destinationPath, $filename);
+            $validated['image'] = $filename;
         }
 
         Destination::create($validated);
@@ -90,22 +88,22 @@ class DestinationController extends Controller
 
         if ($request->hasFile('image')) {
             if ($destination->image) {
-                @unlink(public_path('destinations/' . $destination->image));
+                $oldImagePath = public_path('destinations/' . $destination->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
             }
             
             $file = $request->file('image');
-            $filename = $file->hashName();
+            $filename = time() . '_' . $file->getClientOriginalName();
             $destinationPath = public_path('destinations');
             
-            if (!is_dir($destinationPath)) {
-                @mkdir($destinationPath, 0755, true);
-                @chmod($destinationPath, 0755);
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
             }
             
-            if ($file->move($destinationPath, $filename)) {
-                @chmod($destinationPath . '/' . $filename, 0644);
-                $validated['image'] = $filename;
-            }
+            $file->move($destinationPath, $filename);
+            $validated['image'] = $filename;
         } else {
             unset($validated['image']); // Don't update image if no new file uploaded
         }
@@ -119,7 +117,10 @@ class DestinationController extends Controller
     public function destroy(Destination $destination)
     {
         if ($destination->image) {
-            @unlink(public_path('destinations/' . $destination->image));
+            $imagePath = public_path('destinations/' . $destination->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
         
         $destination->delete();

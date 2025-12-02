@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
+
 class Destination extends Model
 {
     use HasUuids;
@@ -15,7 +16,10 @@ class Destination extends Model
 
         static::deleting(function ($destination) {
             if ($destination->image) {
-                @unlink(public_path('destinations/' . $destination->image));
+                $imagePath = public_path('destinations/' . $destination->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
             }
         });
     }

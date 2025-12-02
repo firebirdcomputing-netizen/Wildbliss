@@ -126,3 +126,4 @@ Route::get('/terms', function () {
 })->name('terms');
 
 require __DIR__.'/settings.php';
+require __DIR__.'/setup.php';
