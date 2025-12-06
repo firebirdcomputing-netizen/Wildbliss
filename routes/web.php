@@ -22,6 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     Route::get('/admin/bookings', [App\Http\Controllers\BookingController::class, 'index'])->name('admin.bookings');
+    Route::put('/admin/bookings/{booking}', [App\Http\Controllers\BookingController::class, 'update']);
+    Route::delete('/admin/bookings/{booking}', [App\Http\Controllers\BookingController::class, 'destroy']);
 
     Route::get('/admin/customers', [App\Http\Controllers\BookingController::class, 'customers'])->name('admin.customers');
 
@@ -31,9 +33,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/reviews', [App\Http\Controllers\ReviewController::class, 'index'])->name('admin.reviews');
     Route::put('/admin/reviews/{review}', [App\Http\Controllers\ReviewController::class, 'updateStatus']);
 
-    Route::get('/admin/settings', function () {
-        return Inertia::render('admin/pages/settings');
-    })->name('admin.settings');
+    Route::get('/admin/accommodations', function () {
+        return Inertia::render('admin/pages/accommodations');
+    })->name('admin.accommodations');
 });
 
 // Public API routes

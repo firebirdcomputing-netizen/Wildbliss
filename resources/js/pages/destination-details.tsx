@@ -18,6 +18,7 @@ export default function DestinationDetails({
     const [destination, setDestination] = useState<Destination | null>(null);
     const [loading, setLoading] = useState(true);
     const [showBookingDialog, setShowBookingDialog] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     useEffect(() => {
         fetchDestination();
@@ -75,13 +76,13 @@ export default function DestinationDetails({
             <Head title={`${destination.name} - WildBliss Tours`} />
 
             {/* Hero Section */}
-            <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
+            <div className="relative max-h-[80vh] min-h-[500px] overflow-hidden bg-gray-900">
                 {destination.image_url ? (
                     <>
                         <img
                             src={destination.image_url}
                             alt={destination.name}
-                            className="absolute inset-0 h-full w-full object-cover"
+                            className="h-full w-full object-contain"
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60" />
                     </>
@@ -292,10 +293,52 @@ export default function DestinationDetails({
                 </div>
             </div>
 
+            {showSuccessMessage && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div
+                        className="fixed inset-0 bg-black/50"
+                        onClick={() => setShowSuccessMessage(false)}
+                    />
+                    <div className="relative w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-xl">
+                        <div className="mb-4 text-green-500">
+                            <svg
+                                className="mx-auto h-16 w-16"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                        </div>
+                        <h3 className="mb-2 text-xl font-bold text-gray-900">
+                            Booking Submitted!
+                        </h3>
+                        <p className="mb-6 text-gray-600">
+                            Thank you for your booking request. We'll contact
+                            you within 24 hours to confirm your safari
+                            adventure.
+                        </p>
+                        <button
+                            onClick={() => setShowSuccessMessage(false)}
+                            className="w-full rounded-lg bg-brand-primary px-6 py-3 font-semibold text-white transition-colors hover:bg-brand-primary/90"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {destination && (
                 <BookingDialog
                     isOpen={showBookingDialog}
                     onClose={() => setShowBookingDialog(false)}
+                    onSuccess={() => {
+                        setShowBookingDialog(false);
+                        setShowSuccessMessage(true);
+                    }}
                     destination={destination}
                 />
             )}

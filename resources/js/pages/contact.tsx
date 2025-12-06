@@ -3,7 +3,7 @@ import { Head, useForm } from '@inertiajs/react';
 import { Mail, Phone, Send, Facebook, Twitter, Instagram } from 'lucide-react';
 
 export default function Contact() {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         country: '',
@@ -16,7 +16,11 @@ export default function Contact() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/contact');
+        post('/contact', {
+            onSuccess: () => {
+                reset();
+            },
+        });
     };
 
     return (

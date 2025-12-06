@@ -5,13 +5,14 @@ import { X, Calendar, Users, Mail, Phone, User, Globe } from 'lucide-react';
 interface BookingDialogProps {
     isOpen: boolean;
     onClose: () => void;
+    onSuccess: () => void;
     destination: {
         id: string;
         name: string;
     };
 }
 
-export default function BookingDialog({ isOpen, onClose, destination }: BookingDialogProps) {
+export default function BookingDialog({ isOpen, onClose, onSuccess, destination }: BookingDialogProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
         destination_id: destination.id,
         name: '',
@@ -28,7 +29,7 @@ export default function BookingDialog({ isOpen, onClose, destination }: BookingD
         post('/bookings', {
             onSuccess: () => {
                 reset();
-                onClose();
+                onSuccess();
             },
         });
     };

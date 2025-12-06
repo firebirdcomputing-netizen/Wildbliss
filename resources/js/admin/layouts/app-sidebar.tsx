@@ -13,7 +13,18 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, MapPin, Calendar, Users, MessageSquare, Settings, Navigation, Star } from 'lucide-react';
+import {
+    BookOpen,
+    Folder,
+    LayoutGrid,
+    MapPin,
+    Calendar,
+    Users,
+    MessageSquare,
+    Building2,
+    Navigation,
+    Star,
+} from 'lucide-react';
 import AppLogo from '@/admin/layouts/app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -37,6 +48,7 @@ const mainNavItems: NavItem[] = [
         href: '/admin/customers',
         icon: Users,
     },
+    { title: 'Accommodations', href: '/admin/accommodations', icon: Building2 },
     {
         title: 'Messages',
         href: '/admin/messages',
@@ -46,11 +58,6 @@ const mainNavItems: NavItem[] = [
         title: 'Reviews',
         href: '/admin/reviews',
         icon: Star,
-    },
-    {
-        title: 'Settings',
-        href: '/admin/settings',
-        icon: Settings,
     },
 ];
 
