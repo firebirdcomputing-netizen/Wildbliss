@@ -130,10 +130,16 @@ Route::get('/destination/{id}', function ($id) {
     ]);
 })->name('destination.details');
 
-// Blog route
+// Blog routes
 Route::get('/blog', function () {
     return Inertia::render('blog');
 })->name('blog');
+
+Route::get('/blog/{id}', function ($id) {
+    return Inertia::render('blog-post', [
+        'id' => $id
+    ]);
+})->name('blog.post')->where('id', '[0-9]+');
 
 // Legal pages
 Route::get('/privacy', function () {

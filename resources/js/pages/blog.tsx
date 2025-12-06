@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public-layout';
 import { Calendar, User, ArrowRight, Search, Filter, Tag } from 'lucide-react';
 import { useState } from 'react';
@@ -243,8 +243,9 @@ export default function Blog() {
 
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {filteredPosts.map((post) => (
-                            <article
+                            <Link
                                 key={post.id}
+                                href={`/blog/${post.id}`}
                                 className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gray-200 hover:shadow-xl"
                             >
                                 <div className="relative h-56 overflow-hidden">
@@ -302,16 +303,16 @@ export default function Blog() {
                                                 {post.author}
                                             </span>
                                         </div>
-                                        <button className="flex items-center gap-2 text-sm font-semibold text-brand-primary transition-colors group-hover:gap-3 hover:text-brand-secondary">
+                                        <div className="flex items-center gap-2 text-sm font-semibold text-brand-primary transition-colors group-hover:gap-3 hover:text-brand-secondary">
                                             Read More
                                             <ArrowRight
                                                 size={16}
                                                 className="transition-transform group-hover:translate-x-1"
                                             />
-                                        </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </article>
+                            </Link>
                         ))}
                     </div>
 
