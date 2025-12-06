@@ -15,7 +15,7 @@ class DestinationController extends Controller
             $destination->tours_count = 0; // Placeholder until Tour model is created
             return $destination;
         });
-        
+
         return Inertia::render('admin/pages/destinations', [
             'destinations' => $destinations
         ]);
@@ -29,7 +29,7 @@ class DestinationController extends Controller
                 $destination->tours_count = 0; // Placeholder until Tour model is created
                 return $destination;
             });
-        
+
         return response()->json($destinations);
     }
 
@@ -54,11 +54,11 @@ class DestinationController extends Controller
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $destinationPath = public_path('destinations');
-            
+
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0755, true);
             }
-            
+
             $file->move($destinationPath, $filename);
             $validated['image'] = $filename;
         }
@@ -93,15 +93,15 @@ class DestinationController extends Controller
                     unlink($oldImagePath);
                 }
             }
-            
+
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $destinationPath = public_path('destinations');
-            
+
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0755, true);
             }
-            
+
             $file->move($destinationPath, $filename);
             $validated['image'] = $filename;
         } else {
@@ -122,7 +122,7 @@ class DestinationController extends Controller
                 unlink($imagePath);
             }
         }
-        
+
         $destination->delete();
 
         return redirect()->route('admin.destinations')

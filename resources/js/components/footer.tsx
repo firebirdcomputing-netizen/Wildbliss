@@ -151,10 +151,10 @@ export default function Footer() {
                                             Email Us
                                         </p>
                                         <a
-                                            href="mailto:info@wildblisstours.com"
+                                            href="mailto:info@wildblisstoursandsafaris.com"
                                             className="font-medium break-all text-white transition-colors hover:text-white/80"
                                         >
-                                            info@wildblisstours.com
+                                            info@wildblisstoursandsafaris.com
                                         </a>
                                     </div>
                                 </div>

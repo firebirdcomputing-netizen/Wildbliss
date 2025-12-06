@@ -12,7 +12,7 @@ export default function Privacy() {
                 <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12">
                         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
-                        
+
                         <div className="prose prose-gray max-w-none">
                             <p className="text-lg text-gray-600 mb-8">
                                 Last updated: January 2025
@@ -21,7 +21,7 @@ export default function Privacy() {
                             <section className="mb-8">
                                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Information We Collect</h2>
                                 <p className="text-gray-600 mb-4">
-                                    We collect information you provide directly to us, such as when you create an account, 
+                                    We collect information you provide directly to us, such as when you create an account,
                                     make a booking, or contact us for support.
                                 </p>
                                 <ul className="list-disc pl-6 text-gray-600 space-y-2">
@@ -58,7 +58,7 @@ export default function Privacy() {
                             <section className="mb-8">
                                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Data Security</h2>
                                 <p className="text-gray-600">
-                                    We implement appropriate security measures to protect your personal information 
+                                    We implement appropriate security measures to protect your personal information
                                     against unauthorized access, alteration, disclosure, or destruction.
                                 </p>
                             </section>
@@ -70,7 +70,7 @@ export default function Privacy() {
                                 </p>
                                 <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                                     <p className="text-gray-700">
-                                        <strong>Email:</strong> info@wildblisstours.com<br />
+                                        <strong>Email:</strong> info@wildblisstoursandsafaris.com<br />
                                         <strong>Phone:</strong> +254 724 777159<br />
                                         <strong>Address:</strong> College House 4th Floor, Koinange Street, Nairobi
                                     </p>

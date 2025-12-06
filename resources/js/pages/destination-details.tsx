@@ -265,12 +265,12 @@ export default function DestinationDetails({
                                             </span>
                                         </a>
                                         <a
-                                            href="mailto:info@wildblisstours.com"
+                                            href="mailto:info@wildblisstoursandsafaris.com"
                                             className="flex items-center gap-3 rounded-lg bg-brand-primary/5 p-3 text-brand-primary transition-colors hover:bg-brand-primary/10"
                                         >
                                             <Mail size={18} />
                                             <span className="font-medium">
-                                                info@wildblisstours.com
+                                                info@wildblisstoursandsafaris.com
                                             </span>
                                         </a>
 

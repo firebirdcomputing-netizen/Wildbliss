@@ -50,6 +50,17 @@ Route::post('/bookings', [App\Http\Controllers\BookingController::class, 'store'
 Route::post('/reviews', [App\Http\Controllers\ReviewController::class, 'store']);
 Route::get('/api/reviews/featured', [App\Http\Controllers\ReviewController::class, 'featuredReviews']);
 
+// File serving route
+Route::get('/storage/{filename}', function ($filename) {
+    $path = public_path('destinations/' . $filename);
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+})->where('filename', '.*');
+
 // Tours and Places routes
 Route::get('/tours', function () {
     return Inertia::render('tours');

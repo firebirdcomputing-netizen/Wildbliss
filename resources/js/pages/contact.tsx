@@ -22,50 +22,90 @@ export default function Contact() {
     return (
         <PublicLayout>
             <Head title="Contact Us - WildBliss Tours">
-                <meta name="description" content="Get in touch with WildBliss Tours for your safari adventure. Contact us for bookings, inquiries, and custom tour packages." />
+                <meta
+                    name="description"
+                    content="Get in touch with WildBliss Tours for your safari adventure. Contact us for bookings, inquiries, and custom tour packages."
+                />
             </Head>
 
             {/* Header Section */}
-            <section className="bg-white py-16 border-b border-gray-100">
+            <section className="border-b border-gray-100 bg-white py-16">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     {/* Logo */}
-                    <div className="flex justify-center mb-12">
-                        <img src="/logo.png" alt="Wild Bliss Tours" className="h-16 w-auto" />
+                    <div className="mb-12 flex justify-center">
+                        <img
+                            src="/logo.png"
+                            alt="Wild Bliss Tours"
+                            className="h-16 w-auto"
+                        />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+                    <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-4">
                         <div>
-                            <h1 className="text-4xl font-bold text-gray-900 mb-2">Contact Us</h1>
+                            <h1 className="mb-2 text-4xl font-bold text-gray-900">
+                                Contact Us
+                            </h1>
                         </div>
 
                         <div className="space-y-2">
-                            <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Physical Address</p>
+                            <p className="text-sm font-medium tracking-wide text-gray-500 uppercase">
+                                Physical Address
+                            </p>
                             <div className="text-gray-900">
-                                <p className="font-medium">College House, 4th Floor,</p>
-                                <p className="font-medium">Koinange Street, Nairobi</p>
+                                <p className="font-medium">
+                                    College House, 4th Floor,
+                                </p>
+                                <p className="font-medium">
+                                    Koinange Street, Nairobi
+                                </p>
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Call Us</p>
-                            <a href="tel:+254727370155" className="block font-semibold text-brand-primary hover:text-brand-primary-hover transition-colors">
+                            <p className="text-sm font-medium tracking-wide text-gray-500 uppercase">
+                                Call Us
+                            </p>
+                            <a
+                                href="tel:+254 724 777159"
+                                className="block font-semibold text-brand-primary transition-colors hover:text-brand-primary-hover"
+                            >
                                 +254 724 777159
                             </a>
                         </div>
 
                         <div className="space-y-3">
-                            <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Email Us</p>
-                            <a href="mailto:info@wildblisstours.com" className="block font-semibold text-brand-primary hover:text-brand-primary-hover transition-colors">
-                                info@wildblisstours.com
+                            <p className="text-sm font-medium tracking-wide text-gray-500 uppercase">
+                                Email Us
+                            </p>
+                            <a
+                                href="mailto:info@wildblisstoursandsafaris.com"
+                                className="block font-semibold text-brand-primary transition-colors hover:text-brand-primary-hover"
+                            >
+                                info@wildblisstoursandsafaris.com
                             </a>
                             <div className="flex space-x-3 pt-2">
-                                <a href="https://www.facebook.com/wildblisstours" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-primary transition-colors">
+                                <a
+                                    href="https://www.facebook.com/wildblisstours"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 transition-colors hover:text-brand-primary"
+                                >
                                     <Facebook size={20} />
                                 </a>
-                                <a href="https://x.com/WildBlissTours" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-primary transition-colors">
+                                <a
+                                    href="https://x.com/WildBlissTours"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 transition-colors hover:text-brand-primary"
+                                >
                                     <Twitter size={20} />
                                 </a>
-                                <a href="https://www.instagram.com/wildbliss.tours/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-primary transition-colors">
+                                <a
+                                    href="https://www.instagram.com/wildbliss.tours/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 transition-colors hover:text-brand-primary"
+                                >
                                     <Instagram size={20} />
                                 </a>
                             </div>
@@ -75,160 +115,279 @@ export default function Contact() {
             </section>
 
             {/* Main Content */}
-            <section className="py-16 bg-gray-50">
+            <section className="bg-gray-50 py-16">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
                         {/* Contact Form */}
                         <div className="lg:col-span-2">
-                            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-                                <h2 className="text-2xl font-bold text-gray-900 mb-2">Send us a Message</h2>
-                                <p className="text-gray-600 mb-8">Fill up the form below to tell us what you're looking for</p>
+                            <div className="rounded-xl border border-gray-100 bg-white p-8 shadow-sm">
+                                <h2 className="mb-2 text-2xl font-bold text-gray-900">
+                                    Send us a Message
+                                </h2>
+                                <p className="mb-8 text-gray-600">
+                                    Fill up the form below to tell us what
+                                    you're looking for
+                                </p>
 
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <form
+                                    onSubmit={handleSubmit}
+                                    className="space-y-6"
+                                >
+                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                         <div>
-                                            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label
+                                                htmlFor="name"
+                                                className="mb-2 block text-sm font-medium text-gray-700"
+                                            >
                                                 Full Name *
                                             </label>
                                             <input
                                                 type="text"
                                                 id="name"
                                                 value={data.name}
-                                                onChange={(e) => setData('name', e.target.value)}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-500"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'name',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                                 placeholder="Enter your full name"
                                                 required
                                             />
-                                            {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+                                            {errors.name && (
+                                                <p className="mt-1 text-sm text-red-600">
+                                                    {errors.name}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label
+                                                htmlFor="email"
+                                                className="mb-2 block text-sm font-medium text-gray-700"
+                                            >
                                                 Email Address *
                                             </label>
                                             <input
                                                 type="email"
                                                 id="email"
                                                 value={data.email}
-                                                onChange={(e) => setData('email', e.target.value)}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-500"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'email',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                                 placeholder="your@email.com"
                                                 required
                                             />
-                                            {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                                            {errors.email && (
+                                                <p className="mt-1 text-sm text-red-600">
+                                                    {errors.email}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                         <div>
-                                            <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label
+                                                htmlFor="country"
+                                                className="mb-2 block text-sm font-medium text-gray-700"
+                                            >
                                                 Country *
                                             </label>
                                             <input
                                                 type="text"
                                                 id="country"
                                                 value={data.country}
-                                                onChange={(e) => setData('country', e.target.value)}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-500"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'country',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                                 placeholder="Your country"
                                                 required
                                             />
-                                            {errors.country && <p className="mt-1 text-sm text-red-600">{errors.country}</p>}
+                                            {errors.country && (
+                                                <p className="mt-1 text-sm text-red-600">
+                                                    {errors.country}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label
+                                                htmlFor="contactNumber"
+                                                className="mb-2 block text-sm font-medium text-gray-700"
+                                            >
                                                 Contact Number *
                                             </label>
                                             <input
                                                 type="tel"
                                                 id="contactNumber"
                                                 value={data.contactNumber}
-                                                onChange={(e) => setData('contactNumber', e.target.value)}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-500"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'contactNumber',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                                 placeholder="+254 700 000 000"
                                                 required
                                             />
-                                            {errors.contactNumber && <p className="mt-1 text-sm text-red-600">{errors.contactNumber}</p>}
+                                            {errors.contactNumber && (
+                                                <p className="mt-1 text-sm text-red-600">
+                                                    {errors.contactNumber}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                         <div>
-                                            <label htmlFor="adults" className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label
+                                                htmlFor="adults"
+                                                className="mb-2 block text-sm font-medium text-gray-700"
+                                            >
                                                 Number of Adults *
                                             </label>
                                             <input
                                                 type="number"
                                                 id="adults"
                                                 value={data.adults}
-                                                onChange={(e) => setData('adults', e.target.value)}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-500"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'adults',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                                 placeholder="1"
                                                 min="1"
                                                 required
                                             />
-                                            {errors.adults && <p className="mt-1 text-sm text-red-600">{errors.adults}</p>}
+                                            {errors.adults && (
+                                                <p className="mt-1 text-sm text-red-600">
+                                                    {errors.adults}
+                                                </p>
+                                            )}
                                         </div>
 
                                         <div>
-                                            <label htmlFor="children" className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label
+                                                htmlFor="children"
+                                                className="mb-2 block text-sm font-medium text-gray-700"
+                                            >
                                                 Number of Children
                                             </label>
                                             <input
                                                 type="number"
                                                 id="children"
                                                 value={data.children}
-                                                onChange={(e) => setData('children', e.target.value)}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-500"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'children',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                                 placeholder="0"
                                                 min="0"
                                             />
-                                            {errors.children && <p className="mt-1 text-sm text-red-600">{errors.children}</p>}
+                                            {errors.children && (
+                                                <p className="mt-1 text-sm text-red-600">
+                                                    {errors.children}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label
+                                            htmlFor="subject"
+                                            className="mb-2 block text-sm font-medium text-gray-700"
+                                        >
                                             Subject *
                                         </label>
                                         <select
                                             id="subject"
                                             value={data.subject}
-                                            onChange={(e) => setData('subject', e.target.value)}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all text-gray-900"
+                                            onChange={(e) =>
+                                                setData(
+                                                    'subject',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                             required
                                         >
-                                            <option value="" className="text-gray-500">Select a subject</option>
-                                            <option value="safari-inquiry">Safari Inquiry</option>
-                                            <option value="booking-request">Booking Request</option>
-                                            <option value="custom-tour">Custom Tour Package</option>
-                                            <option value="group-booking">Group Booking</option>
-                                            <option value="general-inquiry">General Inquiry</option>
+                                            <option
+                                                value=""
+                                                className="text-gray-500"
+                                            >
+                                                Select a subject
+                                            </option>
+                                            <option value="safari-inquiry">
+                                                Safari Inquiry
+                                            </option>
+                                            <option value="booking-request">
+                                                Booking Request
+                                            </option>
+                                            <option value="custom-tour">
+                                                Custom Tour Package
+                                            </option>
+                                            <option value="group-booking">
+                                                Group Booking
+                                            </option>
+                                            <option value="general-inquiry">
+                                                General Inquiry
+                                            </option>
                                         </select>
-                                        {errors.subject && <p className="mt-1 text-sm text-red-600">{errors.subject}</p>}
+                                        {errors.subject && (
+                                            <p className="mt-1 text-sm text-red-600">
+                                                {errors.subject}
+                                            </p>
+                                        )}
                                     </div>
 
                                     <div>
-                                        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label
+                                            htmlFor="message"
+                                            className="mb-2 block text-sm font-medium text-gray-700"
+                                        >
                                             Message *
                                         </label>
                                         <textarea
                                             id="message"
                                             rows={6}
                                             value={data.message}
-                                            onChange={(e) => setData('message', e.target.value)}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition-all resize-none text-gray-900 placeholder-gray-500"
+                                            onChange={(e) =>
+                                                setData(
+                                                    'message',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-transparent focus:ring-2 focus:ring-brand-primary"
                                             placeholder="Tell us about your safari dreams and requirements..."
                                             required
                                         />
-                                        {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
+                                        {errors.message && (
+                                            <p className="mt-1 text-sm text-red-600">
+                                                {errors.message}
+                                            </p>
+                                        )}
                                     </div>
 
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="w-full bg-brand-secondary hover:bg-brand-secondary-hover text-white px-6 py-4 rounded-lg font-semibold transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                                        className="flex w-full items-center justify-center space-x-2 rounded-lg bg-brand-secondary px-6 py-4 font-semibold text-white transition-all duration-200 hover:scale-105 hover:bg-brand-secondary-hover disabled:cursor-not-allowed disabled:opacity-50"
                                     >
                                         {processing ? (
                                             <span>Sending...</span>
@@ -246,24 +405,42 @@ export default function Contact() {
                         {/* Features Sidebar */}
                         <div className="space-y-8">
                             <div className="text-center">
-                                <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                    <img src="/icons/bestprice.svg" alt="Best Price Guarantee" className="w-16 h-16" />
+                                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center">
+                                    <img
+                                        src="/icons/bestprice.svg"
+                                        alt="Best Price Guarantee"
+                                        className="h-16 w-16"
+                                    />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2">Best Price Guarantee</h3>
+                                <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                                    Best Price Guarantee
+                                </h3>
                             </div>
 
                             <div className="text-center">
-                                <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                    <img src="/icons/easyandquick.svg" alt="Easy & Quick Booking" className="w-16 h-16" />
+                                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center">
+                                    <img
+                                        src="/icons/easyandquick.svg"
+                                        alt="Easy & Quick Booking"
+                                        className="h-16 w-16"
+                                    />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2">Easy & Quick Booking</h3>
+                                <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                                    Easy & Quick Booking
+                                </h3>
                             </div>
 
                             <div className="text-center">
-                                <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                                    <img src="/icons/customer.svg" alt="Customer Care 24/7" className="w-16 h-16" />
+                                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center">
+                                    <img
+                                        src="/icons/customer.svg"
+                                        alt="Customer Care 24/7"
+                                        className="h-16 w-16"
+                                    />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2">Customer Care 24/7</h3>
+                                <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                                    Customer Care 24/7
+                                </h3>
                             </div>
                         </div>
                     </div>
