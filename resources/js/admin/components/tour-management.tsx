@@ -1,5 +1,6 @@
-import { Plus, Edit, Trash2, MapPin } from 'lucide-react';
+import { Plus, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from '@inertiajs/react';
 
 interface TourManagementProps {
     destinations: any[];
@@ -11,10 +12,12 @@ export default function TourManagement({ destinations }: TourManagementProps) {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tour Management</h3>
-                <Button className="flex items-center gap-2">
-                    <Plus size={16} />
-                    Add Tour
-                </Button>
+                <Link href="/admin/destinations">
+                    <Button className="flex items-center gap-2">
+                        <Plus size={16} />
+                        Add Tour
+                    </Button>
+                </Link>
             </div>
 
             <div className="space-y-3">
@@ -37,14 +40,7 @@ export default function TourManagement({ destinations }: TourManagementProps) {
                                     <span>★ {destination.rating}</span>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg">
-                                    <Edit size={16} className="text-gray-600 dark:text-gray-400" />
-                                </button>
-                                <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg">
-                                    <Trash2 size={16} className="text-red-600 dark:text-red-400" />
-                                </button>
-                            </div>
+
                         </div>
                     ))
                 )}

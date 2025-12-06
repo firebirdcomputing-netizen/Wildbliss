@@ -15,6 +15,7 @@ import {
     Search,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useLayoutPreference } from '@/hooks/use-layout-preference';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -54,7 +55,7 @@ interface BookingsProps {
 }
 
 export default function Bookings({ bookings, filters }: BookingsProps) {
-    const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+    const { layoutMode, updateLayoutMode } = useLayoutPreference();
     const [selectedBooking, setSelectedBooking] = useState<Booking | null>(
         null,
     );
@@ -116,10 +117,10 @@ export default function Bookings({ bookings, filters }: BookingsProps) {
                         </Button>
                         <Button
                             variant={
-                                viewMode === 'grid' ? 'default' : 'outline'
+                                layoutMode === 'grid' ? 'default' : 'outline'
                             }
                             size="sm"
-                            onClick={() => setViewMode('grid')}
+                            onClick={() => updateLayoutMode('grid')}
                             className="flex items-center gap-2"
                         >
                             <Grid3X3 size={16} />
@@ -127,10 +128,10 @@ export default function Bookings({ bookings, filters }: BookingsProps) {
                         </Button>
                         <Button
                             variant={
-                                viewMode === 'table' ? 'default' : 'outline'
+                                layoutMode === 'table' ? 'default' : 'outline'
                             }
                             size="sm"
-                            onClick={() => setViewMode('table')}
+                            onClick={() => updateLayoutMode('table')}
                             className="flex items-center gap-2"
                         >
                             <List size={16} />
@@ -199,7 +200,7 @@ export default function Bookings({ bookings, filters }: BookingsProps) {
                                     criteria.
                                 </p>
                             </div>
-                        ) : viewMode === 'grid' ? (
+                        ) : layoutMode === 'grid' ? (
                             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                                 {bookings.data.map((booking) => (
                                     <div

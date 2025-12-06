@@ -8,28 +8,47 @@ export default function HeroSection() {
     const slides = [
         {
             id: 1,
-            title: "Maasai Mara National Reserve",
-            description: "Witness the Great Migration and spot the Big Five",
-            image: "masai-mara"
+            title: 'Maasai Mara National Reserve',
+            description: 'Witness the Great Migration and spot the Big Five',
+            image: 'masai-mara',
         },
         {
             id: 2,
-            title: "Amboseli National Park",
-            description: "Elephants against Mount Kilimanjaro backdrop",
-            image: "amboseli"
+            title: 'Amboseli National Park',
+            description: 'Elephants against Mount Kilimanjaro backdrop',
+            image: 'amboseli',
         },
         {
             id: 3,
-            title: "Tsavo National Parks",
+            title: 'Tsavo National Parks',
             description: "Kenya's largest wilderness area",
-            image: "tsavo"
+            image: 'tsavo',
         },
         {
             id: 4,
-            title: "Lake Nakuru National Park",
-            description: "Flamingo paradise and rhino sanctuary",
-            image: "nakuru"
-        }
+            title: 'Lake Nakuru National Park',
+            description: 'Flamingo paradise and rhino sanctuary',
+            image: 'nakuru',
+        },
+        {
+            id: 5,
+            title: 'Kibera Community Outreach',
+            description:
+                'Support local communities through meaningful charity work',
+            image: 'kibera',
+        },
+        {
+            id: 6,
+            title: 'Tea Plantations',
+            description: "Discover Kenya's world-renowned tea estates",
+            image: 'tea-plantations',
+        },
+        {
+            id: 7,
+            title: 'Coffee Plantations',
+            description: 'Experience the journey from bean to cup',
+            image: 'coffee-plantations',
+        },
     ];
 
     useEffect(() => {

@@ -1,4 +1,5 @@
 import { Eye, Calendar } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 interface RecentBookingsProps {
     bookings: any[];
@@ -10,7 +11,9 @@ export default function RecentBookings({ bookings }: RecentBookingsProps) {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Bookings</h3>
-                <button className="text-sm text-primary hover:text-primary/80">View All</button>
+                <Link href="/admin/bookings" className="text-sm text-primary hover:text-primary/80">
+                    View All
+                </Link>
             </div>
             
             <div className="space-y-4">
@@ -44,9 +47,7 @@ export default function RecentBookings({ bookings }: RecentBookingsProps) {
                             </div>
                             <div className="flex items-center gap-3">
                                 <span className="text-sm text-gray-600">{booking.group_size} people</span>
-                                <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg">
-                                    <Eye size={16} className="text-gray-600 dark:text-gray-400" />
-                                </button>
+
                             </div>
                         </div>
                     ))

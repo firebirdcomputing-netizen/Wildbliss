@@ -7,6 +7,7 @@ import {
     type Destination,
     type DestinationData,
 } from '@/services/api';
+import AccommodationSelector from '@/components/accommodation-selector';
 
 interface Props {
     destination?: Destination;
@@ -28,10 +29,13 @@ export default function DestinationDialog({ destination, onClose }: Props) {
         category: destination?.category || '',
         tour: destination?.tour || '',
         status: destination?.status || 'active',
+        accommodation_ids: destination?.accommodation_ids || [],
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        console.log('Form data being submitted:', data);
 
         if (destination) {
             put(`/admin/destinations/${destination.id}`, {
@@ -51,21 +55,45 @@ export default function DestinationDialog({ destination, onClose }: Props) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="mx-4 max-h-[95vh] w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-gray-800">
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            onClick={onClose}
+        >
+            <div
+                className="mx-4 max-h-[95vh] w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-gray-800"
+                onClick={(e) => e.stopPropagation()}
+            >
                 <div className="flex items-center justify-between border-b border-gray-200 p-6 dark:border-gray-700">
                     <div>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                            {destination ? 'Edit Destination' : 'Add New Destination'}
+                            {destination
+                                ? 'Edit Destination'
+                                : 'Add New Destination'}
                         </h2>
                         <div className="mt-2 flex items-center gap-4">
                             <div className="flex items-center gap-2">
-                                <div className={`h-2 w-8 rounded-full ${currentStep >= 1 ? 'bg-brand-primary' : 'bg-gray-200'}`}></div>
-                                <span className="text-sm text-gray-600">Basic Info</span>
+                                <div
+                                    className={`h-2 w-8 rounded-full ${currentStep >= 1 ? 'bg-brand-primary' : 'bg-gray-200'}`}
+                                ></div>
+                                <span className="text-sm text-gray-600">
+                                    Basic Info
+                                </span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className={`h-2 w-8 rounded-full ${currentStep >= 2 ? 'bg-brand-primary' : 'bg-gray-200'}`}></div>
-                                <span className="text-sm text-gray-600">Details</span>
+                                <div
+                                    className={`h-2 w-8 rounded-full ${currentStep >= 2 ? 'bg-brand-primary' : 'bg-gray-200'}`}
+                                ></div>
+                                <span className="text-sm text-gray-600">
+                                    Media & Accommodations
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div
+                                    className={`h-2 w-8 rounded-full ${currentStep >= 3 ? 'bg-brand-primary' : 'bg-gray-200'}`}
+                                ></div>
+                                <span className="text-sm text-gray-600">
+                                    Content
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -81,10 +109,15 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                 {/* Basic Information */}
                                 <div className="space-y-6">
                                     <div className="border-l-4 border-brand-primary pl-4">
-                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Basic Information</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Essential details about the destination</p>
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Basic Information
+                                        </h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            Essential details about the
+                                            destination
+                                        </p>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                         <div>
                                             <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -93,14 +126,22 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             <input
                                                 type="text"
                                                 value={data.name}
-                                                onChange={(e) => setData('name', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'name',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                 placeholder="e.g., Masai Mara National Reserve"
                                                 required
                                             />
                                             {errors.name && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.name}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.name}
                                                 </p>
                                             )}
                                         </div>
@@ -111,14 +152,22 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             <input
                                                 type="text"
                                                 value={data.location}
-                                                onChange={(e) => setData('location', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'location',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                 placeholder="e.g., Kenya, East Africa"
                                                 required
                                             />
                                             {errors.location && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.location}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.location}
                                                 </p>
                                             )}
                                         </div>
@@ -128,10 +177,15 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                 {/* Classification */}
                                 <div className="space-y-6">
                                     <div className="border-l-4 border-brand-secondary pl-4">
-                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Classification</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Categorize and classify the destination</p>
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Classification
+                                        </h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            Categorize and classify the
+                                            destination
+                                        </p>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                                         <div>
                                             <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -139,22 +193,46 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             </label>
                                             <select
                                                 value={data.type}
-                                                onChange={(e) => setData('type', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'type',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                 required
                                             >
-                                                <option value="">Choose type...</option>
-                                                <option value="National Park">National Park</option>
-                                                <option value="Game Reserve">Game Reserve</option>
-                                                <option value="Conservancy">Conservancy</option>
-                                                <option value="Beach">Beach</option>
-                                                <option value="Mountain">Mountain</option>
-                                                <option value="Lake">Lake</option>
-                                                <option value="City">City</option>
+                                                <option value="">
+                                                    Choose type...
+                                                </option>
+                                                <option value="National Park">
+                                                    National Park
+                                                </option>
+                                                <option value="Game Reserve">
+                                                    Game Reserve
+                                                </option>
+                                                <option value="Conservancy">
+                                                    Conservancy
+                                                </option>
+                                                <option value="Beach">
+                                                    Beach
+                                                </option>
+                                                <option value="Mountain">
+                                                    Mountain
+                                                </option>
+                                                <option value="Lake">
+                                                    Lake
+                                                </option>
+                                                <option value="City">
+                                                    City
+                                                </option>
                                             </select>
                                             {errors.type && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.type}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.type}
                                                 </p>
                                             )}
                                         </div>
@@ -164,19 +242,37 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             </label>
                                             <select
                                                 value={data.category}
-                                                onChange={(e) => setData('category', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'category',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                 required
                                             >
-                                                <option value="">Select category</option>
-                                                <option value="Wildlife">Wildlife</option>
-                                                <option value="Adventure">Adventure</option>
-                                                <option value="Cultural">Cultural</option>
-                                                <option value="Beach">Beach</option>
+                                                <option value="">
+                                                    Select category
+                                                </option>
+                                                <option value="Wildlife">
+                                                    Wildlife
+                                                </option>
+                                                <option value="Adventure">
+                                                    Adventure
+                                                </option>
+                                                <option value="Cultural">
+                                                    Cultural
+                                                </option>
+                                                <option value="Beach">
+                                                    Beach
+                                                </option>
                                             </select>
                                             {errors.category && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.category}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.category}
                                                 </p>
                                             )}
                                         </div>
@@ -186,21 +282,45 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             </label>
                                             <select
                                                 value={data.tour}
-                                                onChange={(e) => setData('tour', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'tour',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                             >
-                                                <option value="">Select tour</option>
-                                                <option value="4x4-safaris">4X4 Safaris</option>
-                                                <option value="day-tours">Day Tours</option>
-                                                <option value="kenya-camping-safaris">Kenya Camping Safaris</option>
-                                                <option value="kenya-tanzania-safaris">Kenya - Tanzania Safaris</option>
-                                                <option value="kenya-wildlife-safaris">Kenya Wildlife Safaris</option>
-                                                <option value="mountain-climbing">Mountain Climbing</option>
-                                                <option value="tanzania-wildlife-safaris">Tanzania Wildlife Safaris</option>
+                                                <option value="">
+                                                    Select tour
+                                                </option>
+                                                <option value="4x4-safaris">
+                                                    4X4 Safaris
+                                                </option>
+                                                <option value="day-tours">
+                                                    Day Tours
+                                                </option>
+                                                <option value="kenya-camping-safaris">
+                                                    Kenya Camping Safaris
+                                                </option>
+                                                <option value="kenya-tanzania-safaris">
+                                                    Kenya - Tanzania Safaris
+                                                </option>
+                                                <option value="kenya-wildlife-safaris">
+                                                    Kenya Wildlife Safaris
+                                                </option>
+                                                <option value="mountain-climbing">
+                                                    Mountain Climbing
+                                                </option>
+                                                <option value="tanzania-wildlife-safaris">
+                                                    Tanzania Wildlife Safaris
+                                                </option>
                                             </select>
                                             {errors.tour && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.tour}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.tour}
                                                 </p>
                                             )}
                                         </div>
@@ -210,10 +330,14 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                 {/* Tour Details */}
                                 <div className="space-y-6">
                                     <div className="border-l-4 border-green-500 pl-4">
-                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tour Details</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Pricing and group information</p>
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Tour Details
+                                        </h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            Pricing and group information
+                                        </p>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                                         <div>
                                             <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -225,14 +349,24 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                                 max="5"
                                                 step="0.1"
                                                 value={data.rating}
-                                                onChange={(e) => setData('rating', parseFloat(e.target.value))}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'rating',
+                                                        parseFloat(
+                                                            e.target.value,
+                                                        ),
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                 placeholder="4.5"
                                                 required
                                             />
                                             {errors.rating && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.rating}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.rating}
                                                 </p>
                                             )}
                                         </div>
@@ -243,14 +377,22 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             <input
                                                 type="text"
                                                 value={data.duration}
-                                                onChange={(e) => setData('duration', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'duration',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                 placeholder="2-4 days"
                                                 required
                                             />
                                             {errors.duration && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.duration}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.duration}
                                                 </p>
                                             )}
                                         </div>
@@ -261,14 +403,22 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             <input
                                                 type="text"
                                                 value={data.group_size}
-                                                onChange={(e) => setData('group_size', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'group_size',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                                 placeholder="2-10 people"
                                                 required
                                             />
                                             {errors.group_size && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">⚠</span> {errors.group_size}
+                                                    <span className="mr-1">
+                                                        ⚠
+                                                    </span>{' '}
+                                                    {errors.group_size}
                                                 </p>
                                             )}
                                         </div>
@@ -276,16 +426,20 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                 </div>
                             </div>
                         )}
-                        
+
                         {currentStep === 2 && (
                             <div className="space-y-8">
                                 {/* Image Upload */}
                                 <div className="space-y-6">
                                     <div className="border-l-4 border-purple-500 pl-4">
-                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Media</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Upload destination image</p>
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Media
+                                        </h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            Upload destination image
+                                        </p>
                                     </div>
-                                    
+
                                     <div>
                                         <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                             Destination Image
@@ -297,27 +451,37 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                                     <span className="block text-sm font-medium text-gray-600 dark:text-gray-300">
                                                         Click to upload image
                                                     </span>
-                                                    <span className="text-xs text-gray-500">PNG, JPG up to 2MB</span>
+                                                    <span className="text-xs text-gray-500">
+                                                        PNG, JPG up to 2MB
+                                                    </span>
                                                 </div>
                                                 <input
                                                     type="file"
                                                     accept="image/*"
                                                     className="hidden"
                                                     onChange={(e) => {
-                                                        const file = e.target.files?.[0];
+                                                        const file =
+                                                            e.target.files?.[0];
                                                         if (file) {
-                                                            setData('image', file);
+                                                            setData(
+                                                                'image',
+                                                                file,
+                                                            );
                                                         }
                                                     }}
                                                 />
                                             </label>
-                                            {(data.image || destination?.image_url) && (
+                                            {(data.image ||
+                                                destination?.image_url) && (
                                                 <div className="relative">
                                                     <img
                                                         src={
                                                             data.image
-                                                                ? URL.createObjectURL(data.image)
-                                                                : destination?.image_url || ''
+                                                                ? URL.createObjectURL(
+                                                                      data.image,
+                                                                  )
+                                                                : destination?.image_url ||
+                                                                  ''
                                                         }
                                                         alt="Preview"
                                                         className="h-48 w-full rounded-xl border border-gray-200 object-cover dark:border-gray-600"
@@ -327,33 +491,73 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                         </div>
                                         {errors.image && (
                                             <p className="mt-2 flex items-center text-sm text-red-600">
-                                                <span className="mr-1">⚠</span> {errors.image}
+                                                <span className="mr-1">⚠</span>{' '}
+                                                {errors.image}
                                             </p>
                                         )}
                                     </div>
                                 </div>
 
+                                {/* Accommodations */}
+                                <div className="space-y-6">
+                                    <div className="border-l-4 border-orange-500 pl-4">
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Accommodations
+                                        </h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            Select available accommodations for
+                                            this destination
+                                        </p>
+                                    </div>
+
+                                    <AccommodationSelector
+                                        selectedAccommodations={
+                                            data.accommodation_ids || []
+                                        }
+                                        onSelectionChange={(accommodations) =>
+                                            setData(
+                                                'accommodation_ids',
+                                                accommodations,
+                                            )
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {currentStep === 3 && (
+                            <div className="space-y-8">
                                 {/* Content */}
                                 <div className="space-y-6">
                                     <div className="border-l-4 border-blue-500 pl-4">
-                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Content</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Detailed description and information</p>
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Content
+                                        </h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                                            Detailed description and information
+                                        </p>
                                     </div>
-                                    
+
                                     <div>
                                         <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
                                             Description
                                         </label>
                                         <textarea
                                             value={data.description}
-                                            onChange={(e) => setData('description', e.target.value)}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'description',
+                                                    e.target.value,
+                                                )
+                                            }
                                             className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                             rows={4}
                                             placeholder="Brief description of the destination..."
                                         />
                                         {errors.description && (
                                             <p className="mt-2 flex items-center text-sm text-red-600">
-                                                <span className="mr-1">⚠</span> {errors.description}
+                                                <span className="mr-1">⚠</span>{' '}
+                                                {errors.description}
                                             </p>
                                         )}
                                     </div>
@@ -364,14 +568,17 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                         </label>
                                         <textarea
                                             value={data.info}
-                                            onChange={(e) => setData('info', e.target.value)}
+                                            onChange={(e) =>
+                                                setData('info', e.target.value)
+                                            }
                                             className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                             rows={6}
                                             placeholder="Detailed information about activities, wildlife, best time to visit..."
                                         />
                                         {errors.info && (
                                             <p className="mt-2 flex items-center text-sm text-red-600">
-                                                <span className="mr-1">⚠</span> {errors.info}
+                                                <span className="mr-1">⚠</span>{' '}
+                                                {errors.info}
                                             </p>
                                         )}
                                     </div>
@@ -382,24 +589,35 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                         </label>
                                         <select
                                             value={data.status}
-                                            onChange={(e) => setData('status', e.target.value)}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'status',
+                                                    e.target.value,
+                                                )
+                                            }
                                             className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                         >
-                                            <option value="active">Active</option>
-                                            <option value="inactive">Inactive</option>
+                                            <option value="active">
+                                                Active
+                                            </option>
+                                            <option value="inactive">
+                                                Inactive
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         )}
-                        
+
                         <div className="flex justify-between border-t border-gray-200 pt-6 dark:border-gray-700">
                             <div>
-                                {currentStep === 2 && (
+                                {currentStep > 1 && (
                                     <Button
                                         type="button"
                                         variant="outline"
-                                        onClick={() => setCurrentStep(1)}
+                                        onClick={() =>
+                                            setCurrentStep(currentStep - 1)
+                                        }
                                         className="flex items-center gap-2"
                                     >
                                         <ChevronLeft size={16} />
@@ -407,7 +625,7 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                     </Button>
                                 )}
                             </div>
-                            
+
                             <div className="flex gap-4">
                                 <Button
                                     type="button"
@@ -416,30 +634,41 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                 >
                                     Cancel
                                 </Button>
-                                
-                                {currentStep === 1 ? (
+
+                                {currentStep < 3 ? (
                                     <Button
                                         type="button"
-                                        onClick={() => setCurrentStep(2)}
+                                        onClick={() =>
+                                            setCurrentStep(currentStep + 1)
+                                        }
                                         className="flex items-center gap-2 bg-brand-primary text-white hover:bg-brand-primary/90"
                                     >
                                         Next
                                         <ChevronRight size={16} />
                                     </Button>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="inline">
-                                        <Button 
-                                            type="submit" 
+                                    <form
+                                        onSubmit={handleSubmit}
+                                        className="inline"
+                                    >
+                                        <Button
+                                            type="submit"
                                             disabled={processing}
                                             className="bg-brand-primary text-white hover:bg-brand-primary/90"
                                         >
                                             {processing ? (
                                                 <div className="flex items-center gap-2">
                                                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
-                                                    {destination ? 'Updating...' : 'Creating...'}
+                                                    {destination
+                                                        ? 'Updating...'
+                                                        : 'Creating...'}
                                                 </div>
                                             ) : (
-                                                <>{destination ? 'Update Destination' : 'Create Destination'}</>
+                                                <>
+                                                    {destination
+                                                        ? 'Update Destination'
+                                                        : 'Create Destination'}
+                                                </>
                                             )}
                                         </Button>
                                     </form>

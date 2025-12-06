@@ -5,6 +5,7 @@ import { MapPin, Star, Clock, Users, Calendar, Phone, Mail, ArrowLeft } from 'lu
 import { Link } from '@inertiajs/react';
 import { type Destination } from '@/services/api';
 import BookingDialog from '@/components/dialogs/booking-dialog';
+import AccommodationsSection from '@/components/accommodations-section';
 
 interface DestinationDetailsProps {
     destination: {
@@ -170,6 +171,8 @@ export default function DestinationDetails({
                                     </div>
                                 </div>
                             )}
+
+                            <AccommodationsSection destinationId={destination.id.toString()} />
                         </div>
 
                         {/* Sidebar */}

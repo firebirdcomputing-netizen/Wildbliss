@@ -1,12 +1,14 @@
 import ConfirmationDialog from '@/admin/dialogs/confirmation-dialog';
 import DestinationDialog from '@/admin/dialogs/destination-dialog';
+import DestinationDetailsDialog from '@/admin/dialogs/destination-details-dialog';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { apiService, type Destination } from '@/services/api';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/react';
-import { Edit, MapPin, Plus, RefreshCw, Trash2 } from 'lucide-react';
+import { Edit, MapPin, Plus, RefreshCw, Trash2, Grid3X3, List } from 'lucide-react';
 import { useState } from 'react';
+import { useLayoutPreference } from '@/hooks/use-layout-preference';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -18,16 +20,24 @@ interface Props {
 }
 
 export default function Destinations({ destinations }: Props) {
+    const { layoutMode, updateLayoutMode } = useLayoutPreference();
     const [showDialog, setShowDialog] = useState(false);
     const [editingDestination, setEditingDestination] =
         useState<Destination | null>(null);
     const [confirmDelete, setConfirmDelete] = useState<Destination | null>(
         null,
     );
+    const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
+    const [showDetailsDialog, setShowDetailsDialog] = useState(false);
 
     const handleEdit = (destination: Destination) => {
         setEditingDestination(destination);
         setShowDialog(true);
+    };
+
+    const handleViewDetails = (destination: Destination) => {
+        setSelectedDestination(destination);
+        setShowDetailsDialog(true);
     };
 
     const handleDelete = (destination: Destination) => {
@@ -48,10 +58,30 @@ export default function Destinations({ destinations }: Props) {
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                         Destinations
                     </h1>
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-3">
                         <Button variant="outline" size="sm" onClick={refresh}>
                             <RefreshCw size={16} />
                         </Button>
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant={layoutMode === 'grid' ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() => updateLayoutMode('grid')}
+                                className="flex items-center gap-2"
+                            >
+                                <Grid3X3 size={16} />
+                                Grid
+                            </Button>
+                            <Button
+                                variant={layoutMode === 'table' ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() => updateLayoutMode('table')}
+                                className="flex items-center gap-2"
+                            >
+                                <List size={16} />
+                                Table
+                            </Button>
+                        </div>
                         <Button
                             className="flex items-center gap-2"
                             onClick={() => {
@@ -93,13 +123,90 @@ export default function Destinations({ destinations }: Props) {
                                 Add Your First Destination
                             </Button>
                         </div>
+                    ) : layoutMode === 'table' ? (
+                        <div className="p-6">
+                            <div className="overflow-x-auto">
+                                <table className="w-full min-w-[800px]">
+                                    <thead>
+                                        <tr className="border-b border-gray-200 dark:border-gray-700">
+                                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Destination</th>
+                                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Type</th>
+                                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Description</th>
+                                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Status</th>
+                                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Tours</th>
+                                            <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {destinations.map((destination) => (
+                                            <tr 
+                                                key={destination.id} 
+                                                className="border-b border-gray-100 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                                                onClick={() => handleViewDetails(destination)}
+                                            >
+                                                <td className="px-4 py-3">
+                                                    <div className="flex items-center gap-3">
+                                                        {destination.image_url ? (
+                                                            <img src={destination.image_url} alt={destination.name} className="w-12 h-12 rounded-lg object-cover" />
+                                                        ) : (
+                                                            <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+                                                                <MapPin size={16} className="text-gray-400" />
+                                                            </div>
+                                                        )}
+                                                        <span className="font-medium text-gray-900 dark:text-white">{destination.name}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{destination.type}</td>
+                                                <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400 max-w-xs truncate">{destination.description}</td>
+                                                <td className="px-4 py-3">
+                                                    <span className={`rounded-full px-2 py-1 text-xs font-medium ${
+                                                        destination.status === 'active'
+                                                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                                                            : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+                                                    }`}>
+                                                        {destination.status}
+                                                    </span>
+                                                </td>
+                                                <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">{destination.tours_count}</td>
+                                                <td className="px-4 py-3">
+                                                    <div className="flex gap-1">
+                                                        <Button 
+                                                            variant="ghost" 
+                                                            size="sm" 
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleEdit(destination);
+                                                            }}
+                                                        >
+                                                            <Edit size={14} />
+                                                        </Button>
+                                                        <Button 
+                                                            variant="ghost" 
+                                                            size="sm" 
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setConfirmDelete(destination);
+                                                            }} 
+                                                            className="text-red-600 hover:text-red-700"
+                                                        >
+                                                            <Trash2 size={14} />
+                                                        </Button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     ) : (
                         <div className="p-6">
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                                 {destinations.map((destination) => (
                                     <div
                                         key={destination.id}
-                                        className="group overflow-hidden rounded-lg border border-gray-200 bg-white transition-all duration-200 hover:border-brand-primary hover:shadow-lg dark:border-gray-600 dark:bg-gray-700 dark:hover:border-brand-primary"
+                                        className="group overflow-hidden rounded-lg border border-gray-200 bg-white transition-all duration-200 hover:border-brand-primary hover:shadow-lg dark:border-gray-600 dark:bg-gray-700 dark:hover:border-brand-primary cursor-pointer"
+                                        onClick={() => handleViewDetails(destination)}
                                     >
                                         {destination.image_url ? (
                                             <div className="relative h-48 overflow-hidden">
@@ -158,11 +265,10 @@ export default function Destinations({ destinations }: Props) {
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
-                                                        onClick={() =>
-                                                            handleEdit(
-                                                                destination,
-                                                            )
-                                                        }
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleEdit(destination);
+                                                        }}
                                                         className="opacity-0 transition-opacity group-hover:opacity-100"
                                                     >
                                                         <Edit size={14} />
@@ -170,11 +276,10 @@ export default function Destinations({ destinations }: Props) {
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
-                                                        onClick={() =>
-                                                            setConfirmDelete(
-                                                                destination,
-                                                            )
-                                                        }
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setConfirmDelete(destination);
+                                                        }}
                                                         className="text-red-600 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-700"
                                                     >
                                                         <Trash2 size={14} />
@@ -199,6 +304,20 @@ export default function Destinations({ destinations }: Props) {
                     }}
                 />
             )}
+
+            <DestinationDetailsDialog
+                destination={selectedDestination}
+                isOpen={showDetailsDialog}
+                onClose={() => setShowDetailsDialog(false)}
+                onEdit={(destination) => {
+                    setShowDetailsDialog(false);
+                    handleEdit(destination);
+                }}
+                onDelete={(destination) => {
+                    setShowDetailsDialog(false);
+                    setConfirmDelete(destination);
+                }}
+            />
 
             {confirmDelete && (
                 <ConfirmationDialog

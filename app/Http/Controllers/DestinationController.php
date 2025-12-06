@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Destination;
+use App\Models\Accommodation;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
@@ -35,6 +36,8 @@ class DestinationController extends Controller
 
     public function store(Request $request)
     {
+        \Log::info('Destination store request data:', $request->all());
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
@@ -47,7 +50,9 @@ class DestinationController extends Controller
             'group_size' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'tour' => 'nullable|string|max:255',
-            'status' => 'required|in:active,inactive'
+            'status' => 'required|in:active,inactive',
+            'accommodation_ids' => 'nullable|array',
+            'accommodation_ids.*' => 'string|uuid'
         ]);
 
         if ($request->hasFile('image')) {
@@ -71,6 +76,8 @@ class DestinationController extends Controller
 
     public function update(Request $request, Destination $destination)
     {
+        \Log::info('Destination update request data:', $request->all());
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
@@ -83,7 +90,9 @@ class DestinationController extends Controller
             'group_size' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'tour' => 'nullable|string|max:255',
-            'status' => 'required|in:active,inactive'
+            'status' => 'required|in:active,inactive',
+            'accommodation_ids' => 'nullable|array',
+            'accommodation_ids.*' => 'string|uuid'
         ]);
 
         if ($request->hasFile('image')) {
@@ -129,5 +138,16 @@ class DestinationController extends Controller
             ->with('success', 'Destination deleted successfully.');
     }
 
-
+    public function getAccommodations($id)
+    {
+        $destination = Destination::findOrFail($id);
+        
+        if (!$destination->accommodation_ids || empty($destination->accommodation_ids)) {
+            return response()->json([]);
+        }
+        
+        $accommodations = Accommodation::whereIn('id', $destination->accommodation_ids)->get();
+        
+        return response()->json($accommodations);
+    }
 }

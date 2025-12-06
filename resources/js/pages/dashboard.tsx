@@ -1,10 +1,12 @@
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import RecentBookings from '../admin/components/recent-bookings';
 import StatsCards from '../admin/components/stats-cards';
 import TourManagement from '../admin/components/tour-management';
+import { Button } from '@/components/ui/button';
+import { RefreshCw } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -37,6 +39,15 @@ export default function Dashboard({
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                         Dashboard
                     </h1>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => router.reload()}
+                        className="flex items-center gap-2"
+                    >
+                        <RefreshCw size={16} />
+                        Refresh
+                    </Button>
                 </div>
 
                 <StatsCards stats={stats} />

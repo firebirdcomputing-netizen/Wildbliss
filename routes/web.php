@@ -33,13 +33,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/reviews', [App\Http\Controllers\ReviewController::class, 'index'])->name('admin.reviews');
     Route::put('/admin/reviews/{review}', [App\Http\Controllers\ReviewController::class, 'updateStatus']);
 
-    Route::get('/admin/accommodations', function () {
-        return Inertia::render('admin/pages/accommodations');
-    })->name('admin.accommodations');
+    Route::get('/admin/accommodations', [App\Http\Controllers\AccommodationController::class, 'index'])->name('admin.accommodations');
+    Route::post('/admin/accommodations', [App\Http\Controllers\AccommodationController::class, 'store']);
+    Route::put('/admin/accommodations/{accommodation}', [App\Http\Controllers\AccommodationController::class, 'update']);
+    Route::delete('/admin/accommodations/{accommodation}', [App\Http\Controllers\AccommodationController::class, 'destroy']);
+
+    Route::get('/admin/client-accommodations', [App\Http\Controllers\ClientAccommodationController::class, 'index'])->name('admin.client-accommodations');
+    Route::put('/admin/accommodations/{accommodation}/visibility', [App\Http\Controllers\ClientAccommodationController::class, 'updateVisibility']);
 });
 
 // Public API routes
 Route::get('/api/destinations', [App\Http\Controllers\DestinationController::class, 'publicIndex']);
+Route::get('/api/accommodations', [App\Http\Controllers\AccommodationController::class, 'apiIndex']);
+Route::get('/api/destinations/{id}/accommodations', [App\Http\Controllers\DestinationController::class, 'getAccommodations']);
 
 // Contact routes
 Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact');

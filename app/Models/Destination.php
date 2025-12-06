@@ -36,11 +36,13 @@ class Destination extends Model
         'group_size',
         'category',
         'tour',
-        'status'
+        'status',
+        'accommodation_ids'
     ];
 
     protected $casts = [
-        'rating' => 'decimal:1'
+        'rating' => 'decimal:1',
+        'accommodation_ids' => 'array'
     ];
 
     protected $appends = ['image_url'];
