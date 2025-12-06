@@ -49,7 +49,8 @@ class DestinationController extends Controller
             'duration' => 'required|string|max:255',
             'group_size' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'tour' => 'nullable|string|max:255',
+            'tour' => 'nullable|array',
+            'tour.*' => 'string|max:255',
             'status' => 'required|in:active,inactive',
             'accommodation_ids' => 'nullable|array',
             'accommodation_ids.*' => 'string|uuid'
@@ -89,7 +90,8 @@ class DestinationController extends Controller
             'duration' => 'required|string|max:255',
             'group_size' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'tour' => 'nullable|string|max:255',
+            'tour' => 'nullable|array',
+            'tour.*' => 'string|max:255',
             'status' => 'required|in:active,inactive',
             'accommodation_ids' => 'nullable|array',
             'accommodation_ids.*' => 'string|uuid'

@@ -29,7 +29,11 @@ export default function Tours({ category }: ToursProps) {
     };
 
     const filteredDestinations = category
-        ? destinations.filter((dest) => dest.tour === category)
+        ? destinations.filter((dest) => 
+            Array.isArray(dest.tour) 
+                ? dest.tour.includes(category)
+                : dest.tour === category
+          )
         : destinations;
 
     return (

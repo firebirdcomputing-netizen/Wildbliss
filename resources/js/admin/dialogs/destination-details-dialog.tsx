@@ -106,19 +106,39 @@ export default function DestinationDetailsDialog({
                         )}
                     </div>
 
-                    {destination.description && (
-                        <div>
-                            <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</h4>
-                            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{destination.description}</p>
-                        </div>
-                    )}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 space-y-6">
+                            {destination.description && (
+                                <div>
+                                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</h4>
+                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{destination.description}</p>
+                                </div>
+                            )}
 
-                    {destination.info && (
-                        <div>
-                            <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Additional Information</h4>
-                            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{destination.info}</p>
+                            {destination.info && (
+                                <div>
+                                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Additional Information</h4>
+                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{destination.info}</p>
+                                </div>
+                            )}
                         </div>
-                    )}
+                        
+                        {destination.tour && Array.isArray(destination.tour) && destination.tour.length > 0 && (
+                            <div>
+                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Tour Categories</h4>
+                                <div className="space-y-2">
+                                    {destination.tour.map((tourCategory) => (
+                                        <span
+                                            key={tourCategory}
+                                            className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-xs font-medium mr-2 mb-2"
+                                        >
+                                            {tourCategory.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
 
                     <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <Button 

@@ -117,6 +117,24 @@ export default function Navigation() {
                                     >
                                         <span className="font-medium">Tanzania Wildlife Safaris</span>
                                     </Link>
+                                    <Link
+                                        href="/tours/plantations"
+                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                    >
+                                        <span className="font-medium">Plantations</span>
+                                    </Link>
+                                    <Link
+                                        href="/tours/charity"
+                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                    >
+                                        <span className="font-medium">Charity</span>
+                                    </Link>
+                                    <Link
+                                        href="/tours/beaches"
+                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                    >
+                                        <span className="font-medium">Beaches</span>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -239,6 +257,27 @@ export default function Navigation() {
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Tanzania Wildlife Safaris
+                                    </Link>
+                                    <Link
+                                        href="/tours/plantations"
+                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        Plantations
+                                    </Link>
+                                    <Link
+                                        href="/tours/charity"
+                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        Charity
+                                    </Link>
+                                    <Link
+                                        href="/tours/beaches"
+                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        Beaches
                                     </Link>
                                 </div>
                             </div>

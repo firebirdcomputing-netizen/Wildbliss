@@ -11,10 +11,10 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const categories = ['All', 'Wildlife', 'Adventure', 'Cultural', 'Beach'];
+const categories = ['All', 'Wildlife', 'Adventure', 'Cultural', 'Beach', 'Plantations', 'Charity'];
 const countries = ['All', 'Kenya', 'Tanzania'];
-const tours = ['All', '4X4 Safaris', 'Day Tours', 'Kenya Camping Safaris', 'Kenya - Tanzania Safaris', 'Kenya Wildlife Safaris', 'Mountain Climbing', 'Tanzania Wildlife Safaris'];
-const tourValues = ['All', '4x4-safaris', 'day-tours', 'kenya-camping-safaris', 'kenya-tanzania-safaris', 'kenya-wildlife-safaris', 'mountain-climbing', 'tanzania-wildlife-safaris'];
+const tours = ['All', '4X4 Safaris', 'Day Tours', 'Kenya Camping Safaris', 'Kenya - Tanzania Safaris', 'Kenya Wildlife Safaris', 'Mountain Climbing', 'Tanzania Wildlife Safaris', 'Plantations', 'Charity', 'Beaches'];
+const tourValues = ['All', '4x4-safaris', 'day-tours', 'kenya-camping-safaris', 'kenya-tanzania-safaris', 'kenya-wildlife-safaris', 'mountain-climbing', 'tanzania-wildlife-safaris', 'plantations', 'charity', 'beaches'];
 
 export default function DestinationGrid() {
     const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -55,7 +55,9 @@ export default function DestinationGrid() {
             destination.location === selectedCountry;
         const matchesTour =
             selectedTour === 'All' ||
-            destination.tour === tourValues[tours.indexOf(selectedTour)];
+            (Array.isArray(destination.tour) 
+                ? destination.tour.includes(tourValues[tours.indexOf(selectedTour)])
+                : destination.tour === tourValues[tours.indexOf(selectedTour)]);
 
         return matchesSearch && matchesCategory && matchesCountry && matchesTour;
     });

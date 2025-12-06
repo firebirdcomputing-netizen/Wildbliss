@@ -6,6 +6,7 @@ import { Link } from '@inertiajs/react';
 import { type Destination } from '@/services/api';
 import BookingDialog from '@/components/dialogs/booking-dialog';
 import AccommodationsSection from '@/components/accommodations-section';
+import RelatedDestinations from '@/components/related-destinations';
 
 interface DestinationDetailsProps {
     destination: {
@@ -173,6 +174,9 @@ export default function DestinationDetails({
                             )}
 
                             <AccommodationsSection destinationId={destination.id.toString()} />
+                            
+                            {/* Related Destinations */}
+                            <RelatedDestinations currentDestination={destination} />
                         </div>
 
                         {/* Sidebar */}
@@ -241,14 +245,24 @@ export default function DestinationDetails({
                                             </div>
                                             <div>
                                                 <p className="text-sm font-medium tracking-wide text-gray-500 uppercase">
-                                                    Tour Category
+                                                    Tour Categories
                                                 </p>
-                                                <p className="text-lg font-semibold text-gray-900 capitalize">
-                                                    {destination.tour.replace(
-                                                        /-/g,
-                                                        ' ',
+                                                <div className="space-y-1">
+                                                    {Array.isArray(destination.tour) ? (
+                                                        destination.tour.map((tourCategory, index) => (
+                                                            <span
+                                                                key={index}
+                                                                className="inline-block bg-brand-primary/10 text-brand-primary px-2 py-1 rounded text-sm font-medium mr-1 mb-1"
+                                                            >
+                                                                {tourCategory.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                                            </span>
+                                                        ))
+                                                    ) : (
+                                                        <p className="text-lg font-semibold text-gray-900 capitalize">
+                                                            {destination.tour.replace(/-/g, ' ')}
+                                                        </p>
                                                     )}
-                                                </p>
+                                                </div>
                                             </div>
                                         </div>
                                     )}

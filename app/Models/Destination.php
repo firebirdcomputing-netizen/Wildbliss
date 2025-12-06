@@ -42,7 +42,8 @@ class Destination extends Model
 
     protected $casts = [
         'rating' => 'decimal:1',
-        'accommodation_ids' => 'array'
+        'accommodation_ids' => 'array',
+        'tour' => 'array'
     ];
 
     protected $appends = ['image_url'];

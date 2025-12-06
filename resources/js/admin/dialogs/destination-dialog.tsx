@@ -27,7 +27,7 @@ export default function DestinationDialog({ destination, onClose }: Props) {
         duration: destination?.duration || '',
         group_size: destination?.group_size || '',
         category: destination?.category || '',
-        tour: destination?.tour || '',
+        tour: destination?.tour || [],
         status: destination?.status || 'active',
         accommodation_ids: destination?.accommodation_ids || [],
     });
@@ -186,141 +186,144 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                         </p>
                                     </div>
 
-                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                                        <div>
-                                            <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                                Destination Type *
-                                            </label>
-                                            <select
-                                                value={data.type}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        'type',
-                                                        e.target.value,
-                                                    )
-                                                }
-                                                className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                                                required
-                                            >
-                                                <option value="">
-                                                    Choose type...
-                                                </option>
-                                                <option value="National Park">
-                                                    National Park
-                                                </option>
-                                                <option value="Game Reserve">
-                                                    Game Reserve
-                                                </option>
-                                                <option value="Conservancy">
-                                                    Conservancy
-                                                </option>
-                                                <option value="Beach">
-                                                    Beach
-                                                </option>
-                                                <option value="Mountain">
-                                                    Mountain
-                                                </option>
-                                                <option value="Lake">
-                                                    Lake
-                                                </option>
-                                                <option value="City">
-                                                    City
-                                                </option>
-                                            </select>
-                                            {errors.type && (
-                                                <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">
-                                                        ⚠
-                                                    </span>{' '}
-                                                    {errors.type}
-                                                </p>
-                                            )}
+                                    <div className="space-y-6">
+                                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                            <div>
+                                                <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                                    Destination Type *
+                                                </label>
+                                                <select
+                                                    value={data.type}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            'type',
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                    required
+                                                >
+                                                    <option value="">
+                                                        Choose type...
+                                                    </option>
+                                                    <option value="National Park">
+                                                        National Park
+                                                    </option>
+                                                    <option value="Game Reserve">
+                                                        Game Reserve
+                                                    </option>
+                                                    <option value="Conservancy">
+                                                        Conservancy
+                                                    </option>
+                                                    <option value="Beach">
+                                                        Beach
+                                                    </option>
+                                                    <option value="Mountain">
+                                                        Mountain
+                                                    </option>
+                                                    <option value="Lake">
+                                                        Lake
+                                                    </option>
+                                                    <option value="City">
+                                                        City
+                                                    </option>
+                                                </select>
+                                                {errors.type && (
+                                                    <p className="mt-2 flex items-center text-sm text-red-600">
+                                                        <span className="mr-1">
+                                                            ⚠
+                                                        </span>{' '}
+                                                        {errors.type}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <div>
+                                                <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                                    Category *
+                                                </label>
+                                                <select
+                                                    value={data.category}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            'category',
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                                    required
+                                                >
+                                                    <option value="">
+                                                        Select category
+                                                    </option>
+                                                    <option value="Wildlife">
+                                                        Wildlife
+                                                    </option>
+                                                    <option value="Adventure">
+                                                        Adventure
+                                                    </option>
+                                                    <option value="Cultural">
+                                                        Cultural
+                                                    </option>
+                                                    <option value="Beach">
+                                                        Beach
+                                                    </option>
+                                                    <option value="Plantations">
+                                                        Plantations
+                                                    </option>
+                                                    <option value="Charity">
+                                                        Charity
+                                                    </option>
+                                                </select>
+                                                {errors.category && (
+                                                    <p className="mt-2 flex items-center text-sm text-red-600">
+                                                        <span className="mr-1">
+                                                            ⚠
+                                                        </span>{' '}
+                                                        {errors.category}
+                                                    </p>
+                                                )}
+                                            </div>
                                         </div>
                                         <div>
                                             <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                                Category *
+                                                Tour Categories
                                             </label>
-                                            <select
-                                                value={data.category}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        'category',
-                                                        e.target.value,
-                                                    )
-                                                }
-                                                className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                                                required
-                                            >
-                                                <option value="">
-                                                    Select category
-                                                </option>
-                                                <option value="Wildlife">
-                                                    Wildlife
-                                                </option>
-                                                <option value="Adventure">
-                                                    Adventure
-                                                </option>
-                                                <option value="Cultural">
-                                                    Cultural
-                                                </option>
-                                                <option value="Beach">
-                                                    Beach
-                                                </option>
-                                            </select>
-                                            {errors.category && (
-                                                <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">
-                                                        ⚠
-                                                    </span>{' '}
-                                                    {errors.category}
-                                                </p>
-                                            )}
-                                        </div>
-                                        <div>
-                                            <label className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                                Tour Category
-                                            </label>
-                                            <select
-                                                value={data.tour}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        'tour',
-                                                        e.target.value,
-                                                    )
-                                                }
-                                                className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                                            >
-                                                <option value="">
-                                                    Select tour
-                                                </option>
-                                                <option value="4x4-safaris">
-                                                    4X4 Safaris
-                                                </option>
-                                                <option value="day-tours">
-                                                    Day Tours
-                                                </option>
-                                                <option value="kenya-camping-safaris">
-                                                    Kenya Camping Safaris
-                                                </option>
-                                                <option value="kenya-tanzania-safaris">
-                                                    Kenya - Tanzania Safaris
-                                                </option>
-                                                <option value="kenya-wildlife-safaris">
-                                                    Kenya Wildlife Safaris
-                                                </option>
-                                                <option value="mountain-climbing">
-                                                    Mountain Climbing
-                                                </option>
-                                                <option value="tanzania-wildlife-safaris">
-                                                    Tanzania Wildlife Safaris
-                                                </option>
-                                            </select>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                {[
+                                                    { value: '4x4-safaris', label: '4X4 Safaris' },
+                                                    { value: 'day-tours', label: 'Day Tours' },
+                                                    { value: 'kenya-camping-safaris', label: 'Kenya Camping Safaris' },
+                                                    { value: 'kenya-tanzania-safaris', label: 'Kenya - Tanzania Safaris' },
+                                                    { value: 'kenya-wildlife-safaris', label: 'Kenya Wildlife Safaris' },
+                                                    { value: 'mountain-climbing', label: 'Mountain Climbing' },
+                                                    { value: 'tanzania-wildlife-safaris', label: 'Tanzania Wildlife Safaris' },
+                                                    { value: 'plantations', label: 'Plantations' },
+                                                    { value: 'charity', label: 'Charity' },
+                                                    { value: 'beaches', label: 'Beaches' }
+                                                ].map((tour) => (
+                                                    <label key={tour.value} className="flex items-center gap-2 cursor-pointer">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={Array.isArray(data.tour) ? data.tour.includes(tour.value) : false}
+                                                            onChange={(e) => {
+                                                                const tours = Array.isArray(data.tour) ? [...data.tour] : [];
+                                                                if (e.target.checked) {
+                                                                    tours.push(tour.value);
+                                                                } else {
+                                                                    const index = tours.indexOf(tour.value);
+                                                                    if (index > -1) tours.splice(index, 1);
+                                                                }
+                                                                setData('tour', tours);
+                                                            }}
+                                                            className="rounded border-gray-300 text-brand-primary focus:ring-brand-primary"
+                                                        />
+                                                        <span className="text-sm text-gray-700 dark:text-gray-300">{tour.label}</span>
+                                                    </label>
+                                                ))}
+                                            </div>
                                             {errors.tour && (
                                                 <p className="mt-2 flex items-center text-sm text-red-600">
-                                                    <span className="mr-1">
-                                                        ⚠
-                                                    </span>{' '}
-                                                    {errors.tour}
+                                                    <span className="mr-1">⚠</span> {errors.tour}
                                                 </p>
                                             )}
                                         </div>
