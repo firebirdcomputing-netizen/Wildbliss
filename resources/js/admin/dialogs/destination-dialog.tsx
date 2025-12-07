@@ -553,10 +553,13 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                                     e.target.value,
                                                 )
                                             }
-                                            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                                            rows={4}
-                                            placeholder="Brief description of the destination..."
+                                            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white font-mono text-sm"
+                                            rows={6}
+                                            placeholder="Brief description of the destination (HTML supported)..."
                                         />
+                                        <p className="mt-1 text-xs text-gray-500">
+                                            You can use HTML tags for formatting (h2, h3, p, ul, li, strong, etc.)
+                                        </p>
                                         {errors.description && (
                                             <p className="mt-2 flex items-center text-sm text-red-600">
                                                 <span className="mr-1">⚠</span>{' '}
@@ -574,10 +577,13 @@ export default function DestinationDialog({ destination, onClose }: Props) {
                                             onChange={(e) =>
                                                 setData('info', e.target.value)
                                             }
-                                            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                                            rows={6}
-                                            placeholder="Detailed information about activities, wildlife, best time to visit..."
+                                            className="w-full rounded-xl border-2 border-gray-200 bg-gray-50 px-4 py-3 text-gray-900 transition-all focus:border-brand-primary focus:bg-white focus:ring-4 focus:ring-brand-primary/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white font-mono text-sm"
+                                            rows={10}
+                                            placeholder="Detailed information about activities, wildlife, best time to visit (HTML supported)..."
                                         />
+                                        <p className="mt-1 text-xs text-gray-500">
+                                            You can use HTML tags for formatting (h2, h3, p, ul, li, strong, etc.)
+                                        </p>
                                         {errors.info && (
                                             <p className="mt-2 flex items-center text-sm text-red-600">
                                                 <span className="mr-1">⚠</span>{' '}

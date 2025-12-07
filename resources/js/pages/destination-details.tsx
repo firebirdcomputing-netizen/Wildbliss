@@ -153,11 +153,12 @@ export default function DestinationDetails({
                                 <h2 className="mb-6 text-3xl font-bold text-gray-900">
                                     About This Destination
                                 </h2>
-                                <div className="prose prose-lg max-w-none">
-                                    <p className="leading-relaxed whitespace-pre-line text-gray-600">
-                                        {destination.description}
-                                    </p>
-                                </div>
+                                <div
+                                    className="text-gray-900 leading-relaxed space-y-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-bold [&>h3]:text-gray-900 [&>h3]:mb-2 [&>p]:text-gray-900 [&>p]:mb-4 [&>ul]:text-gray-900 [&>ol]:text-gray-900 [&>li]:text-gray-900 [&>a]:text-brand-primary [&>a]:no-underline hover:[&>a]:underline [&>strong]:text-gray-900 [&>em]:text-gray-900"
+                                    dangerouslySetInnerHTML={{
+                                        __html: destination.description,
+                                    }}
+                                />
                             </div>
 
                             {destination.info && (
@@ -165,18 +166,23 @@ export default function DestinationDetails({
                                     <h3 className="mb-4 text-2xl font-bold text-gray-900">
                                         Tour Details & Information
                                     </h3>
-                                    <div className="prose prose-lg max-w-none">
-                                        <p className="leading-relaxed whitespace-pre-line text-gray-700">
-                                            {destination.info}
-                                        </p>
-                                    </div>
+                                    <div
+                                        className="text-gray-900 leading-relaxed space-y-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-lg [&>h3]:font-bold [&>h3]:text-gray-900 [&>h3]:mb-2 [&>p]:text-gray-900 [&>p]:mb-4 [&>ul]:text-gray-900 [&>ol]:text-gray-900 [&>li]:text-gray-900 [&>a]:text-brand-primary [&>a]:no-underline hover:[&>a]:underline [&>strong]:text-gray-900 [&>em]:text-gray-900"
+                                        dangerouslySetInnerHTML={{
+                                            __html: destination.info,
+                                        }}
+                                    />
                                 </div>
                             )}
 
-                            <AccommodationsSection destinationId={destination.id.toString()} />
-                            
+                            <AccommodationsSection
+                                destinationId={destination.id.toString()}
+                            />
+
                             {/* Related Destinations */}
-                            <RelatedDestinations currentDestination={destination} />
+                            <RelatedDestinations
+                                currentDestination={destination}
+                            />
                         </div>
 
                         {/* Sidebar */}
@@ -248,18 +254,39 @@ export default function DestinationDetails({
                                                     Tour Categories
                                                 </p>
                                                 <div className="space-y-1">
-                                                    {Array.isArray(destination.tour) ? (
-                                                        destination.tour.map((tourCategory, index) => (
-                                                            <span
-                                                                key={index}
-                                                                className="inline-block bg-brand-primary/10 text-brand-primary px-2 py-1 rounded text-sm font-medium mr-1 mb-1"
-                                                            >
-                                                                {tourCategory.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                                                            </span>
-                                                        ))
+                                                    {Array.isArray(
+                                                        destination.tour,
+                                                    ) ? (
+                                                        destination.tour.map(
+                                                            (
+                                                                tourCategory,
+                                                                index,
+                                                            ) => (
+                                                                <span
+                                                                    key={index}
+                                                                    className="mr-1 mb-1 inline-block rounded bg-brand-primary/10 px-2 py-1 text-sm font-medium text-brand-primary"
+                                                                >
+                                                                    {tourCategory
+                                                                        .replace(
+                                                                            /-/g,
+                                                                            ' ',
+                                                                        )
+                                                                        .replace(
+                                                                            /\b\w/g,
+                                                                            (
+                                                                                l,
+                                                                            ) =>
+                                                                                l.toUpperCase(),
+                                                                        )}
+                                                                </span>
+                                                            ),
+                                                        )
                                                     ) : (
                                                         <p className="text-lg font-semibold text-gray-900 capitalize">
-                                                            {destination.tour.replace(/-/g, ' ')}
+                                                            {destination.tour.replace(
+                                                                /-/g,
+                                                                ' ',
+                                                            )}
                                                         </p>
                                                     )}
                                                 </div>

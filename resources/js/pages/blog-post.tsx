@@ -46,7 +46,7 @@ export default function BlogPost({ id }: BlogPostProps) {
         return (
             <PublicLayout>
                 <Head title="Post Not Found - WildBliss Tours" />
-                <div className="flex min-h-screen items-center justify-center">
+                <div className="flex min-h-screen items-center justify-center bg-gray-50">
                     <div className="text-center">
                         <h1 className="text-2xl font-bold text-gray-900">Post Not Found</h1>
                         <Link href="/blog" className="mt-4 text-brand-primary hover:underline">
@@ -125,16 +125,31 @@ export default function BlogPost({ id }: BlogPostProps) {
                             </div>
                         </div>
                         
-                        <button className="flex items-center gap-2 rounded-xl bg-brand-primary/5 border border-brand-primary/20 px-6 py-3 text-sm font-medium text-brand-primary transition-all hover:bg-brand-primary hover:text-white">
+                        <button 
+                            onClick={() => {
+                                if (navigator.share) {
+                                    navigator.share({
+                                        title: post.title,
+                                        text: post.excerpt,
+                                        url: window.location.href
+                                    });
+                                } else {
+                                    navigator.clipboard.writeText(window.location.href);
+                                    alert('Link copied to clipboard!');
+                                }
+                            }}
+                            className="flex items-center gap-2 rounded-xl bg-brand-primary/5 border border-brand-primary/20 px-6 py-3 text-sm font-medium text-brand-primary transition-all hover:bg-brand-primary hover:text-white"
+                        >
                             <Share2 size={16} />
                             Share Article
                         </button>
                     </div>
 
                     <div className="mb-8">
-                        <div className="text-lg leading-relaxed text-gray-700 space-y-6">
-                            <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                        </div>
+                        <div 
+                            className="text-gray-900 leading-relaxed space-y-4 [&>h1]:text-3xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mb-4 [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-3 [&>h3]:text-xl [&>h3]:font-bold [&>h3]:text-gray-900 [&>h3]:mb-2 [&>p]:text-gray-900 [&>p]:mb-4 [&>ul]:text-gray-900 [&>ol]:text-gray-900 [&>li]:text-gray-900 [&>a]:text-brand-primary [&>a]:no-underline hover:[&>a]:underline [&>strong]:text-gray-900 [&>em]:text-gray-900"
+                            dangerouslySetInnerHTML={{ __html: post.content }}
+                        />
                     </div>
 
                     {/* Tags */}
