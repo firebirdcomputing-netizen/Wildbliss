@@ -1,92 +1,46 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public-layout';
 import { Calendar, User, ArrowLeft, Share2, Clock, Tag } from 'lucide-react';
+import { useState, useEffect } from 'react';
+
+interface BlogPost {
+    id: string;
+    title: string;
+    excerpt: string;
+    content: string;
+    category: string;
+    author: string;
+    read_time: string;
+    status: 'published' | 'draft';
+    image_url?: string;
+    tags?: string[];
+    created_at: string;
+}
 
 interface BlogPostProps {
     id: string;
 }
 
 export default function BlogPost({ id }: BlogPostProps) {
-    // Mock blog post data - in real app this would come from props/server
-    const blogPosts = {
-        '1': {
-            id: 1,
-            title: 'Best Time to Visit Masai Mara for the Great Migration',
-            excerpt: 'Discover the optimal months to witness the spectacular wildebeest migration in Masai Mara National Reserve.',
-            image: '/destinations/masai-mara.jpg',
-            author: 'Safari Expert',
-            date: '2024-01-15',
-            category: 'Wildlife',
-            readTime: '5 min read',
-            content: `
-                <p>The Great Migration is one of nature's most spectacular events, and timing your visit to Masai Mara is crucial for witnessing this incredible phenomenon. The migration follows a predictable pattern, but weather conditions can affect exact timing.</p>
-                
-                <h2>Peak Migration Season: July to October</h2>
-                <p>The best time to visit Masai Mara for the Great Migration is between July and October. During this period, over 1.5 million wildebeest, along with hundreds of thousands of zebras and gazelles, cross from Tanzania's Serengeti into Kenya's Masai Mara.</p>
-                
-                <h3>July - August: River Crossings</h3>
-                <p>This is when you'll witness the famous river crossings at the Mara River. The herds gather courage to cross the crocodile-infested waters, creating dramatic scenes that wildlife photographers dream of capturing.</p>
-                
-                <h3>September - October: Peak Numbers</h3>
-                <p>The highest concentration of animals is typically found during these months. The grasslands are filled with grazing herds, and predator activity is at its peak as lions, leopards, and cheetahs take advantage of the abundant prey.</p>
-                
-                <h2>What to Expect During Migration</h2>
-                <p>During the migration season, you can expect:</p>
-                <ul>
-                    <li>Massive herds stretching to the horizon</li>
-                    <li>Dramatic river crossings with crocodile encounters</li>
-                    <li>Increased predator activity and hunting scenes</li>
-                    <li>Excellent photography opportunities</li>
-                    <li>Higher accommodation prices and crowds</li>
-                </ul>
-                
-                <h2>Planning Your Visit</h2>
-                <p>Book your safari well in advance, especially for July through September. Consider staying in camps closer to the Mara River for the best river crossing viewing opportunities. Weather can be unpredictable, so pack layers and rain gear.</p>
-            `
-        },
-        '2': {
-            id: 2,
-            title: 'Essential Safari Packing Guide for Kenya',
-            excerpt: 'Everything you need to pack for your Kenyan safari adventure, from clothing to photography equipment.',
-            image: '/destinations/amboseli.jpg',
-            author: 'Travel Guide',
-            date: '2024-01-10',
-            category: 'Travel Tips',
-            readTime: '7 min read',
-            content: `
-                <p>Packing for a Kenyan safari requires careful consideration of the climate, activities, and practical needs. This comprehensive guide will ensure you're well-prepared for your adventure.</p>
-                
-                <h2>Clothing Essentials</h2>
-                <h3>Neutral Colors</h3>
-                <p>Stick to khaki, beige, olive green, and brown colors. Avoid bright colors and black (attracts tsetse flies) or white (shows dirt easily).</p>
-                
-                <h3>Layering System</h3>
-                <ul>
-                    <li>Lightweight long-sleeved shirts for sun protection</li>
-                    <li>Comfortable safari pants</li>
-                    <li>Warm fleece or jacket for early morning game drives</li>
-                    <li>Rain jacket or poncho</li>
-                </ul>
-                
-                <h2>Footwear</h2>
-                <p>Bring comfortable walking boots, lightweight sneakers for camp, and sandals for relaxing. Ensure boots are broken in before your trip.</p>
-                
-                <h2>Photography Equipment</h2>
-                <p>A good camera with telephoto lens is essential. Don't forget extra batteries, memory cards, and a dust-proof camera bag. Binoculars are also highly recommended.</p>
-                
-                <h2>Health and Safety Items</h2>
-                <ul>
-                    <li>Sunscreen (SPF 30+)</li>
-                    <li>Insect repellent with DEET</li>
-                    <li>Personal medications</li>
-                    <li>First aid kit basics</li>
-                    <li>Hand sanitizer</li>
-                </ul>
-            `
-        }
-    };
+    const [post, setPost] = useState<BlogPost | null>(null);
+    const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
 
-    const post = blogPosts[id as keyof typeof blogPosts];
+    useEffect(() => {
+        // Fetch the specific blog post
+        fetch(`/api/blog/${id}`)
+            .then(res => res.json())
+            .then(data => setPost(data))
+            .catch(err => console.error('Failed to fetch blog post:', err));
+
+        // Fetch all posts for related posts
+        fetch('/api/blog')
+            .then(res => res.json())
+            .then(data => {
+                const filtered = data.filter((p: BlogPost) => p.id !== id).slice(0, 3);
+                setRelatedPosts(filtered);
+            })
+            .catch(err => console.error('Failed to fetch related posts:', err));
+    }, [id]);
 
     if (!post) {
         return (
@@ -111,46 +65,46 @@ export default function BlogPost({ id }: BlogPostProps) {
             </Head>
 
             {/* Hero Section */}
-            <section className="relative h-96 overflow-hidden">
+            <section className="relative h-[70vh] overflow-hidden">
                 <img
-                    src={post.image}
+                    src={post.image_url || '/destinations/masai-mara.jpg'}
                     alt={post.title}
                     className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 
                 <div className="absolute inset-0 flex items-end">
                     <div className="mx-auto w-full max-w-4xl px-4 pb-12 sm:px-6 lg:px-8">
                         <Link
                             href="/blog"
-                            className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+                            className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-md border border-white/20 transition-all hover:bg-white/20 hover:scale-105"
                         >
                             <ArrowLeft size={16} />
                             Back to Blog
                         </Link>
                         
-                        <div className="mb-4">
-                            <span className="rounded-full bg-brand-secondary px-3 py-1 text-xs font-semibold text-white">
+                        <div className="mb-6">
+                            <span className="rounded-full bg-brand-secondary/90 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm">
                                 {post.category}
                             </span>
                         </div>
                         
-                        <h1 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+                        <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl leading-tight">
                             {post.title}
                         </h1>
                         
-                        <div className="flex items-center gap-6 text-white/90">
-                            <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-6 text-white/90">
+                            <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 backdrop-blur-sm">
                                 <User size={16} />
-                                <span>{post.author}</span>
+                                <span className="font-medium">{post.author}</span>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 backdrop-blur-sm">
                                 <Calendar size={16} />
-                                <span>{new Date(post.date).toLocaleDateString()}</span>
+                                <span>{new Date(post.created_at).toLocaleDateString()}</span>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 backdrop-blur-sm">
                                 <Clock size={16} />
-                                <span>{post.readTime}</span>
+                                <span>{post.read_time}</span>
                             </div>
                         </div>
                     </div>
@@ -158,45 +112,47 @@ export default function BlogPost({ id }: BlogPostProps) {
             </section>
 
             {/* Article Content */}
-            <section className="py-16">
+            <section className="py-20 bg-white">
                 <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-                    <div className="mb-8 flex items-center justify-between border-b border-gray-200 pb-6">
+                    <div className="mb-12 flex items-center justify-between border-b border-gray-100 pb-8">
                         <div className="flex items-center gap-4">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-primary/10">
-                                <User size={20} className="text-brand-primary" />
+                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-primary to-brand-primary/80">
+                                <User size={24} className="text-white" />
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-900">{post.author}</p>
-                                <p className="text-sm text-gray-600">Safari Expert & Travel Writer</p>
+                                <p className="text-lg font-bold text-gray-900">{post.author}</p>
+                                <p className="text-gray-600">Safari Expert & Travel Writer</p>
                             </div>
                         </div>
                         
-                        <button className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                        <button className="flex items-center gap-2 rounded-xl bg-brand-primary/5 border border-brand-primary/20 px-6 py-3 text-sm font-medium text-brand-primary transition-all hover:bg-brand-primary hover:text-white">
                             <Share2 size={16} />
-                            Share
+                            Share Article
                         </button>
                     </div>
 
-                    <div 
-                        className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-brand-primary prose-strong:text-gray-900 prose-ul:text-gray-700"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
-                    />
+                    <div className="mb-8">
+                        <div className="text-lg leading-relaxed text-gray-700 space-y-6">
+                            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                        </div>
+                    </div>
 
                     {/* Tags */}
-                    <div className="mt-12 border-t border-gray-200 pt-8">
-                        <div className="flex items-center gap-3">
-                            <Tag size={16} className="text-gray-400" />
-                            <span className="text-sm font-medium text-gray-500">Tags:</span>
-                            <div className="flex gap-2">
-                                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+                    <div className="mt-16 border-t border-gray-100 pt-8">
+                        <div className="flex flex-wrap items-center gap-4">
+                            <div className="flex items-center gap-2">
+                                <Tag size={18} className="text-brand-primary" />
+                                <span className="font-semibold text-gray-900">Tags:</span>
+                            </div>
+                            <div className="flex flex-wrap gap-3">
+                                <span className="rounded-full bg-brand-primary/10 text-brand-primary px-4 py-2 text-sm font-medium border border-brand-primary/20">
                                     {post.category}
                                 </span>
-                                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
-                                    Safari
-                                </span>
-                                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
-                                    Kenya
-                                </span>
+                                {post.tags?.map((tag, index) => (
+                                    <span key={index} className="rounded-full bg-gray-100 hover:bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors">
+                                        {tag}
+                                    </span>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -204,31 +160,34 @@ export default function BlogPost({ id }: BlogPostProps) {
             </section>
 
             {/* Related Posts */}
-            <section className="bg-gray-50 py-16">
+            <section className="bg-gradient-to-br from-gray-50 to-white py-20">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <h2 className="mb-8 text-2xl font-bold text-gray-900">Related Articles</h2>
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Continue Reading</h2>
+                        <p className="text-gray-600 max-w-2xl mx-auto">Discover more safari insights and travel tips from our expert guides</p>
+                    </div>
                     
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {Object.values(blogPosts)
-                            .filter(p => p.id !== post.id)
-                            .slice(0, 3)
-                            .map((relatedPost) => (
-                                <Link
+                        {relatedPosts.map((relatedPost) => (
+                                <a
                                     key={relatedPost.id}
                                     href={`/blog/${relatedPost.id}`}
-                                    className="group overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
                                 >
                                     <div className="relative h-48 overflow-hidden">
                                         <img
-                                            src={relatedPost.image}
+                                            src={relatedPost.image_url || '/destinations/default.jpg'}
                                             alt={relatedPost.title}
                                             className="h-full w-full object-cover transition-transform group-hover:scale-105"
                                         />
-                                        <div className="absolute top-3 left-3">
-                                            <span className="rounded-full bg-brand-secondary/90 px-2 py-1 text-xs font-semibold text-white">
+                                        <div className="absolute top-4 left-4">
+                                            <span className="rounded-full bg-brand-secondary/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
                                                 {relatedPost.category}
                                             </span>
                                         </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                     </div>
                                     
                                     <div className="p-4">
@@ -240,10 +199,10 @@ export default function BlogPost({ id }: BlogPostProps) {
                                         </p>
                                         <div className="flex items-center justify-between text-xs text-gray-500">
                                             <span>{relatedPost.author}</span>
-                                            <span>{relatedPost.readTime}</span>
+                                            <span>{relatedPost.read_time}</span>
                                         </div>
                                     </div>
-                                </Link>
+                                </a>
                             ))}
                     </div>
                 </div>

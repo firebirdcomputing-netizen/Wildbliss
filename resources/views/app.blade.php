@@ -32,12 +32,12 @@
 
         <title inertia>{{ config('app.name', 'Wildbliss Tours and Safaris') }}</title>
 
-        <link rel="icon" href="/logo.png" sizes="any">
-        <link rel="icon" href="/logo.png" type="image/png">
-        <link rel="apple-touch-icon" href="/logo.png">
+        <link rel="icon" href="/logo2.jpg" sizes="any"> {{-- Standard favicon for all browsers --}}
+        <link rel="icon" href="/logo2.jpg" type="image/png"> {{-- PNG favicon for modern browsers --}}
+        <link rel="apple-touch-icon" href="/logo2.jpg"> {{-- Icon for iOS home screen bookmarks --}}
 
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.bunny.net"> {{-- DNS prefetch for faster font loading --}}
+        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" /> {{-- Loads Instrument Sans font from Bunny Fonts CDN --}}
 
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])

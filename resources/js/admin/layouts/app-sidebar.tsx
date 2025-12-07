@@ -59,6 +59,11 @@ const mainNavItems: NavItem[] = [
         href: '/admin/reviews',
         icon: Star,
     },
+    {
+        title: 'Blog Posts',
+        href: '/admin/blog',
+        icon: BookOpen,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

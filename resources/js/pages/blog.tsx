@@ -1,7 +1,20 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public-layout';
 import { Calendar, User, ArrowRight, Search, Filter, Tag } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+interface BlogPost {
+    id: string;
+    title: string;
+    excerpt: string;
+    category: string;
+    author: string;
+    read_time: string;
+    status: 'published' | 'draft';
+    image_url?: string;
+    tags?: string[];
+    created_at: string;
+}
 
 export default function Blog() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -17,63 +30,14 @@ export default function Blog() {
         'Conservation',
     ];
 
-    const blogPosts = [
-        {
-            id: 1,
-            title: 'Best Time to Visit Masai Mara for the Great Migration',
-            excerpt:
-                'Discover the optimal months to witness the spectacular wildebeest migration in Masai Mara National Reserve.',
-            image: '/destinations/masai-mara.jpg',
-            author: 'Safari Expert',
-            date: '2024-01-15',
-            category: 'Wildlife',
-            readTime: '5 min read',
-        },
-        {
-            id: 2,
-            title: 'Essential Safari Packing Guide for Kenya',
-            excerpt:
-                'Everything you need to pack for your Kenyan safari adventure, from clothing to photography equipment.',
-            image: '/destinations/amboseli.jpg',
-            author: 'Travel Guide',
-            date: '2024-01-10',
-            category: 'Travel Tips',
-            readTime: '7 min read',
-        },
-        {
-            id: 3,
-            title: 'Top 10 Birds to Spot in Lake Nakuru',
-            excerpt:
-                'A comprehensive guide to the amazing bird species you can encounter at Lake Nakuru National Park.',
-            image: '/destinations/nakuru.jpg',
-            author: 'Wildlife Photographer',
-            date: '2024-01-05',
-            category: 'Birdwatching',
-            readTime: '6 min read',
-        },
-        {
-            id: 4,
-            title: 'Wildlife Photography Tips for Safari',
-            excerpt:
-                'Master the art of capturing stunning wildlife photos during your African safari adventure.',
-            image: '/destinations/tsavo.jpg',
-            author: 'Pro Photographer',
-            date: '2023-12-28',
-            category: 'Photography',
-            readTime: '8 min read',
-        },
-        {
-            id: 5,
-            title: 'Conservation Efforts in Kenyan National Parks',
-            excerpt:
-                "Learn about the ongoing conservation initiatives protecting Kenya's incredible wildlife and ecosystems.",
-            image: '/destinations/amboseli.jpg',
-            author: 'Conservation Expert',
-            date: '2023-12-20',
-            category: 'Conservation',
-            readTime: '10 min read',
-        },
-    ];
+    const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+
+    useEffect(() => {
+        fetch('/api/blog')
+            .then(res => res.json())
+            .then(data => setBlogPosts(data))
+            .catch(err => console.error('Failed to fetch blog posts:', err));
+    }, []);
 
     const filteredPosts = blogPosts.filter((post) => {
         const matchesSearch =
@@ -94,33 +58,35 @@ export default function Blog() {
             </Head>
 
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-brand-primary to-brand-primary/90 py-20 text-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <section className="relative bg-gradient-to-br from-brand-primary via-brand-primary to-brand-primary/90 py-24 text-white overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/destinations/masai-mara.jpg')] bg-cover bg-center opacity-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/90 to-brand-primary/70" />
+                <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="text-center">
-                        <h1 className="mb-6 text-4xl font-bold md:text-5xl">
-                            Safari Stories & Travel Guides
+                        <h1 className="mb-6 text-5xl font-bold md:text-6xl lg:text-7xl">
+                            Safari Stories & <span className="text-brand-secondary">Travel Guides</span>
                         </h1>
-                        <p className="mx-auto mb-8 max-w-3xl text-xl text-blue-100">
+                        <p className="mx-auto mb-10 max-w-3xl text-xl md:text-2xl text-blue-100 leading-relaxed">
                             Discover expert insights, wildlife stories, and
                             essential travel tips for your Kenyan safari
                             adventure.
                         </p>
 
                         {/* Hero Search */}
-                        <div className="mx-auto max-w-md">
+                        <div className="mx-auto max-w-lg">
                             <div className="relative">
                                 <Search
-                                    className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400"
-                                    size={20}
+                                    className="absolute top-1/2 left-6 -translate-y-1/2 text-gray-400"
+                                    size={24}
                                 />
                                 <input
                                     type="text"
-                                    placeholder="Search articles..."
+                                    placeholder="Search safari stories and guides..."
                                     value={searchTerm}
                                     onChange={(e) =>
                                         setSearchTerm(e.target.value)
                                     }
-                                    className="w-full rounded-xl border-0 bg-white/90 py-4 pr-4 pl-12 text-gray-900 placeholder-gray-500 shadow-lg backdrop-blur-sm transition-all focus:bg-white focus:ring-2 focus:ring-white/50"
+                                    className="w-full rounded-2xl border-0 bg-white/95 py-5 pr-6 pl-16 text-lg text-gray-900 placeholder-gray-500 shadow-2xl backdrop-blur-sm transition-all focus:bg-white focus:ring-4 focus:ring-white/30 focus:scale-105"
                                 />
                             </div>
                         </div>
@@ -129,7 +95,7 @@ export default function Blog() {
             </section>
 
             {/* Blog Posts Grid */}
-            <section className="bg-gray-50 py-16">
+            <section className="bg-gradient-to-b from-white to-gray-50 py-20">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     {/* Filters Section */}
                     <div className="mb-12">
@@ -166,27 +132,27 @@ export default function Blog() {
                         </div>
 
                         {/* Desktop Filters */}
-                        <div className="mb-6 hidden items-center justify-between lg:flex">
+                        <div className="mb-8 hidden items-center justify-between lg:flex">
                             <div>
-                                <h2 className="mb-2 text-2xl font-bold text-gray-900">
+                                <h2 className="mb-3 text-3xl font-bold text-gray-900">
                                     Latest Articles
                                 </h2>
-                                <p className="text-gray-600">
+                                <p className="text-lg text-gray-600">
                                     Expert insights and travel guides for your
                                     safari adventure
                                 </p>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-3">
                                 {categories.map((category) => (
                                     <button
                                         key={category}
                                         onClick={() =>
                                             setSelectedCategory(category)
                                         }
-                                        className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                                        className={`rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 ${
                                             selectedCategory === category
-                                                ? 'bg-brand-primary text-white shadow-sm'
-                                                : 'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
+                                                ? 'bg-brand-primary text-white shadow-lg scale-105'
+                                                : 'border border-gray-200 bg-white text-gray-600 hover:bg-brand-primary/5 hover:border-brand-primary/20 hover:text-brand-primary'
                                         }`}
                                     >
                                         {category}
@@ -243,23 +209,30 @@ export default function Blog() {
 
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {filteredPosts.map((post) => (
-                            <Link
+                            <a
                                 key={post.id}
                                 href={`/blog/${post.id}`}
-                                className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gray-200 hover:shadow-xl"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-brand-primary/20 hover:shadow-2xl"
                             >
-                                <div className="relative h-56 overflow-hidden">
+                                <div className="relative h-64 overflow-hidden">
                                     <img
-                                        src={post.image}
+                                        src={post.image_url || '/destinations/masai-mara.jpg'}
                                         alt={post.title}
-                                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
                                     <div className="absolute top-4 left-4">
-                                        <span className="rounded-full bg-brand-secondary/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                                        <span className="rounded-full bg-brand-secondary/90 px-4 py-2 text-xs font-semibold text-white backdrop-blur-sm shadow-lg">
                                             {post.category}
                                         </span>
                                     </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
+                                            <ArrowRight size={16} className="text-white" />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="p-6">
@@ -273,21 +246,21 @@ export default function Blog() {
                                                 <Calendar size={14} />
                                                 <span>
                                                     {new Date(
-                                                        post.date,
+                                                        post.created_at,
                                                     ).toLocaleDateString()}
                                                 </span>
                                             </div>
                                             <span className="rounded-full bg-gray-100 px-2 py-1 font-medium">
-                                                {post.readTime}
+                                                {post.read_time}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <h2 className="mb-3 line-clamp-2 text-lg font-bold text-gray-900 transition-colors group-hover:text-brand-primary">
+                                    <h2 className="mb-3 line-clamp-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-brand-primary leading-tight">
                                         {post.title}
                                     </h2>
 
-                                    <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-gray-600">
+                                    <p className="mb-4 line-clamp-3 text-gray-600 leading-relaxed">
                                         {post.excerpt}
                                     </p>
 
@@ -312,7 +285,7 @@ export default function Blog() {
                                         </div>
                                     </div>
                                 </div>
-                            </Link>
+                            </a>
                         ))}
                     </div>
 

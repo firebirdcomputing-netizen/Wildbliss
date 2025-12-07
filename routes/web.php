@@ -40,12 +40,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/admin/client-accommodations', [App\Http\Controllers\ClientAccommodationController::class, 'index'])->name('admin.client-accommodations');
     Route::put('/admin/accommodations/{accommodation}/visibility', [App\Http\Controllers\ClientAccommodationController::class, 'updateVisibility']);
+
+    Route::get('/admin/blog', [App\Http\Controllers\BlogPostController::class, 'index'])->name('admin.blog');
+    Route::post('/admin/blog', [App\Http\Controllers\BlogPostController::class, 'store']);
+    Route::put('/admin/blog/{blogPost}', [App\Http\Controllers\BlogPostController::class, 'update']);
+    Route::delete('/admin/blog/{blogPost}', [App\Http\Controllers\BlogPostController::class, 'destroy']);
 });
 
 // Public API routes
 Route::get('/api/destinations', [App\Http\Controllers\DestinationController::class, 'publicIndex']);
 Route::get('/api/accommodations', [App\Http\Controllers\AccommodationController::class, 'apiIndex']);
 Route::get('/api/destinations/{id}/accommodations', [App\Http\Controllers\DestinationController::class, 'getAccommodations']);
+Route::get('/api/blog', [App\Http\Controllers\BlogPostController::class, 'publicIndex']);
+Route::get('/api/blog/{blogPost}', [App\Http\Controllers\BlogPostController::class, 'show']);
+
+
 
 // Contact routes
 Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact');
@@ -103,6 +112,18 @@ Route::get('/tours/tanzania-wildlife-safaris', function () {
     return Inertia::render('tours', ['category' => 'tanzania-wildlife-safaris']);
 })->name('tours.tanzania-wildlife-safaris');
 
+Route::get('/tours/plantations', function () {
+    return Inertia::render('tours', ['category' => 'plantations']);
+})->name('tours.plantations');
+
+Route::get('/tours/charity', function () {
+    return Inertia::render('tours', ['category' => 'charity']);
+})->name('tours.charity');
+
+Route::get('/tours/beaches', function () {
+    return Inertia::render('tours', ['category' => 'beaches']);
+})->name('tours.beaches');
+
 // Generic tour details route (must come after specific category routes)
 Route::get('/tours/{id}', function ($id) {
     return Inertia::render('destination-details', [
@@ -139,7 +160,9 @@ Route::get('/blog/{id}', function ($id) {
     return Inertia::render('blog-post', [
         'id' => $id
     ]);
-})->name('blog.post')->where('id', '[0-9]+');
+})->name('blog.post');
+
+
 
 // Legal pages
 Route::get('/privacy', function () {
