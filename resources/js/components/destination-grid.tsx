@@ -95,7 +95,7 @@ export default function DestinationGrid() {
                     </h3>
 
                     <p className="mb-4 line-clamp-2 text-sm text-gray-600 leading-relaxed">
-                        {destination.description}
+                        {destination.description.replace(/<[^>]*>/g, '')}
                     </p>
 
                     <div className="mb-4 flex items-center justify-between text-xs text-gray-500">

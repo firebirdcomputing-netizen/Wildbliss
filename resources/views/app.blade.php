@@ -30,7 +30,7 @@
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'Wildbliss Tours and Safaris') }}</title>
+        <title inertia>{{ config('app.name', 'WildblissToursandSafaris') }}</title>
 
         <link rel="icon" href="/logo2.jpg" sizes="any"> {{-- Standard favicon for all browsers --}}
         <link rel="icon" href="/logo2.jpg" type="image/png"> {{-- PNG favicon for modern browsers --}}

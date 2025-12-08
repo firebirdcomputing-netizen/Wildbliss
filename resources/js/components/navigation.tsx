@@ -25,12 +25,19 @@ export default function Navigation() {
     };
 
     return (
-        <nav className="bg-white shadow-lg sticky top-0 z-50">
+        <nav className="sticky top-0 z-50 bg-white shadow-lg">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 justify-between">
                     <div className="flex items-center">
-                        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-                            <img src="/logo.png" alt="WildBliss Tours" className="h-10 w-auto" />
+                        <Link
+                            href="/"
+                            className="flex items-center transition-opacity hover:opacity-80"
+                        >
+                            <img
+                                src="/logo.png"
+                                alt="WildBliss Tours"
+                                className="h-10 w-auto"
+                            />
                         </Link>
                     </div>
 
@@ -38,14 +45,14 @@ export default function Navigation() {
                     <div className="hidden lg:flex lg:items-center lg:space-x-1">
                         <Link
                             href="/"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                            className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-primary"
                         >
                             Home
                         </Link>
 
                         <Link
                             href="/destination"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                            className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-primary"
                         >
                             Destinations
                         </Link>
@@ -54,8 +61,10 @@ export default function Navigation() {
                         <div className="relative" ref={dropdownRef}>
                             <button
                                 onClick={toggleToursDropdown}
-                                className={`flex items-center text-gray-700 hover:text-brand-primary hover:bg-gray-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                    isToursOpen ? 'text-brand-primary bg-gray-50' : ''
+                                className={`flex items-center rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-primary ${
+                                    isToursOpen
+                                        ? 'bg-gray-50 text-brand-primary'
+                                        : ''
                                 }`}
                             >
                                 Tours
@@ -68,85 +77,111 @@ export default function Navigation() {
                             </button>
 
                             {/* Dropdown Menu */}
-                            <div className={`absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-300 ${
-                                isToursOpen ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform -translate-y-2'
-                            }`}>
+                            <div
+                                className={`absolute top-full left-0 mt-2 w-72 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-xl transition-all duration-300 ${
+                                    isToursOpen
+                                        ? 'visible translate-y-0 transform opacity-100'
+                                        : 'invisible -translate-y-2 transform opacity-0'
+                                }`}
+                            >
                                 <div className="py-3">
-                                    <div className="px-4 py-2 border-b border-gray-100">
-                                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Safari Experiences</p>
+                                    <div className="border-b border-gray-100 px-4 py-2">
+                                        <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                                            Safari Experiences
+                                        </p>
                                     </div>
                                     <Link
                                         href="/tours/4x4-safaris"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">4X4 Safaris</span>
+                                        <span className="font-medium">
+                                            4X4 Safaris
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/day-tours"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Day Tours</span>
+                                        <span className="font-medium">
+                                            Day Tours
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/kenya-camping-safaris"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Kenya Camping Safaris</span>
+                                        <span className="font-medium">
+                                            Kenya Camping Safaris
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/kenya-tanzania-safaris"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Kenya - Tanzania Safaris</span>
+                                        <span className="font-medium">
+                                            Kenya - Tanzania Safaris
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/kenya-wildlife-safaris"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Kenya Wildlife Safaris</span>
+                                        <span className="font-medium">
+                                            Kenya Wildlife Safaris
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/mountain-climbing"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Mountain Climbing</span>
+                                        <span className="font-medium">
+                                            Mountain Climbing
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/tanzania-wildlife-safaris"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Tanzania Wildlife Safaris</span>
+                                        <span className="font-medium">
+                                            Tanzania Wildlife Safaris
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/plantations"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Plantations</span>
+                                        <span className="font-medium">
+                                            Plantations
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/charity"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Charity</span>
+                                        <span className="font-medium">
+                                            Charity
+                                        </span>
                                     </Link>
                                     <Link
                                         href="/tours/beaches"
-                                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-brand-primary hover:text-white transition-all duration-200 group"
+                                        className="group flex items-center px-4 py-3 text-sm text-gray-700 transition-all duration-200 hover:bg-brand-primary hover:text-white"
                                     >
-                                        <span className="font-medium">Beaches</span>
+                                        <span className="font-medium">
+                                            Beaches
+                                        </span>
                                     </Link>
                                 </div>
                             </div>
                         </div>
                         <Link
                             href="/blog"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                            className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-primary"
                         >
                             Blog
                         </Link>
                         <Link
                             href="/contact"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+                            className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-brand-primary"
                         >
                             Contact
                         </Link>
@@ -159,10 +194,10 @@ export default function Navigation() {
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="lg:hidden flex items-center">
+                    <div className="flex items-center lg:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="text-gray-700 hover:text-brand-primary p-2 rounded-lg transition-colors"
+                            className="rounded-lg p-2 text-gray-700 transition-colors hover:text-brand-primary"
                         >
                             {isOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -170,13 +205,17 @@ export default function Navigation() {
                 </div>
 
                 {/* Mobile Navigation */}
-                <div className={`lg:hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-                }`}>
-                    <div className="px-2 pt-2 pb-4 space-y-1 bg-white border-t border-gray-100">
+                <div
+                    className={`transition-all duration-300 ease-in-out lg:hidden ${
+                        isOpen
+                            ? 'max-h-screen opacity-100'
+                            : 'max-h-0 overflow-hidden opacity-0'
+                    }`}
+                >
+                    <div className="space-y-1 border-t border-gray-100 bg-white px-2 pt-2 pb-4">
                         <Link
                             href="/"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 block px-4 py-3 rounded-lg text-base font-medium transition-all"
+                            className="block rounded-lg px-4 py-3 text-base font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-brand-primary"
                             onClick={() => setIsOpen(false)}
                         >
                             Home
@@ -184,7 +223,7 @@ export default function Navigation() {
 
                         <Link
                             href="/destination"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 block px-4 py-3 rounded-lg text-base font-medium transition-all"
+                            className="block rounded-lg px-4 py-3 text-base font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-brand-primary"
                             onClick={() => setIsOpen(false)}
                         >
                             Destinations
@@ -193,8 +232,10 @@ export default function Navigation() {
                         {/* Mobile Tours Section */}
                         <div className="px-4 py-2">
                             <button
-                                onClick={() => setIsMobileToursOpen(!isMobileToursOpen)}
-                                className="flex items-center justify-between w-full text-gray-700 hover:text-brand-primary py-2 text-base font-medium transition-all"
+                                onClick={() =>
+                                    setIsMobileToursOpen(!isMobileToursOpen)
+                                }
+                                className="flex w-full items-center justify-between py-2 text-base font-medium text-gray-700 transition-all hover:text-brand-primary"
                             >
                                 Tours
                                 <ChevronDown
@@ -205,76 +246,80 @@ export default function Navigation() {
                                 />
                             </button>
 
-                            <div className={`transition-all duration-300 ease-in-out ${
-                                isMobileToursOpen ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0 overflow-hidden'
-                            }`}>
-                                <div className="pl-4 space-y-1 border-l-2 border-gray-100">
+                            <div
+                                className={`transition-all duration-300 ease-in-out ${
+                                    isMobileToursOpen
+                                        ? 'mt-2 max-h-96 opacity-100'
+                                        : 'max-h-0 overflow-hidden opacity-0'
+                                }`}
+                            >
+                                <div className="space-y-1 border-l-2 border-gray-100 pl-4">
                                     <Link
                                         href="/tours/4x4-safaris"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         4X4 Safaris
                                     </Link>
                                     <Link
                                         href="/tours/day-tours"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Day Tours
                                     </Link>
                                     <Link
                                         href="/tours/kenya-camping-safaris"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Kenya Camping Safaris
                                     </Link>
                                     <Link
                                         href="/tours/kenya-tanzania-safaris"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Kenya - Tanzania Safaris
                                     </Link>
                                     <Link
                                         href="/tours/kenya-wildlife-safaris"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Kenya Wildlife Safaris
                                     </Link>
                                     <Link
                                         href="/tours/mountain-climbing"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Mountain Climbing
                                     </Link>
                                     <Link
                                         href="/tours/tanzania-wildlife-safaris"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Tanzania Wildlife Safaris
                                     </Link>
                                     <Link
                                         href="/tours/plantations"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Plantations
                                     </Link>
                                     <Link
                                         href="/tours/charity"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Charity
                                     </Link>
                                     <Link
                                         href="/tours/beaches"
-                                        className="block py-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
+                                        className="block py-2 text-sm text-gray-600 transition-colors hover:text-brand-primary"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Beaches
@@ -284,22 +329,22 @@ export default function Navigation() {
                         </div>
                         <Link
                             href="/blog"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 block px-4 py-3 rounded-lg text-base font-medium transition-all"
+                            className="block rounded-lg px-4 py-3 text-base font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-brand-primary"
                             onClick={() => setIsOpen(false)}
                         >
                             Blog
                         </Link>
                         <Link
                             href="/contact"
-                            className="text-gray-700 hover:text-brand-primary hover:bg-gray-50 block px-4 py-3 rounded-lg text-base font-medium transition-all"
+                            className="block rounded-lg px-4 py-3 text-base font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-brand-primary"
                             onClick={() => setIsOpen(false)}
                         >
                             Contact
                         </Link>
                         <div className="px-4 pt-2">
                             <Link
-                                href="/book-now"
-                                className="bg-brand-secondary hover:bg-brand-secondary-hover text-white block px-4 py-3 rounded-lg text-base font-semibold transition-all text-center"
+                                href="/destination"
+                                className="block rounded-lg bg-brand-secondary px-4 py-3 text-center text-base font-semibold text-white transition-all hover:bg-brand-secondary-hover"
                                 onClick={() => setIsOpen(false)}
                             >
                                 Book Now
